@@ -10,11 +10,8 @@ const PopupChangeFromToken = styled.button`
     outline: none;
     margin-left: 15px;
     background-color: transparent;
+    padding: 0;
 `
-
-
-
-
 
 export const PopupFromButton = () => {
     return(

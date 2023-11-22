@@ -52,7 +52,7 @@ export const InfoButton = () => {
 
     getPrice(tokenFrom, price, tokenTo).then(price => setPrice(price))
     return(
-        <ButtonInfoMain id="open">
+        <ButtonInfoMain>
             1 {tokenFrom.base} = {price} {tokenTo.base}
             <InfoImg src={ArrowSvg}></InfoImg>
         </ButtonInfoMain>
