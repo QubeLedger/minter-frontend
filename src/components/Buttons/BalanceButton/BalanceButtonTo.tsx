@@ -29,7 +29,6 @@ async function getBalance(address: string, restUrl: string, denom: string, dec: 
     let balanceJson = await res.json()
     let balanceArray = balanceJson.balances
     let balance = balanceArray.find((bal: any) => bal.denom == denom)
-    console.log(Number(balance.amount) / dec)
     return (Number(balance.amount) / (10 ** dec)).toFixed(3)
 }
 
@@ -41,7 +40,7 @@ export const BalanceButtonTo = () => {
     if (wallet.init == true) {
         let tokens = tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
         let tokenInfo = tokens.find((token) => token.Base == tokenTo.base)
-        getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => setBalance(price))
+        getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
     }
     return(
         <ButtonBalance>

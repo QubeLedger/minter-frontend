@@ -1,7 +1,13 @@
 import styled from 'styled-components'
 import { PopupSelectToToken } from '../../Popup/PopupTo/PopupSelectToToken'
-import { PopupToButton } from '../../Buttons/PopupButtons/PopupToButton/PopupToButton'
 import { BalanceTo } from '../../Balance/BalanceTo'
+import { useTokenTo } from '../../../hooks/useTokenTo'
+import { useTokenFrom } from '../../../hooks/useTokenFrom'
+import { QUBE_TESTNET_INFO, TOKEN_INFO_COLLATERAL, TOKEN_INFO_QASSET } from '../../../constants'
+import { PairInfo, QUBE_TESTNET_PAIRS } from '../../../constants/pair'
+import { TokenType } from '../../../constants/tokens'
+import { useEffect, useState } from 'react'
+import { useAmountInStore } from '../../../hooks/useAmountInStore'
 
 
 const ConvertTo = styled.div `
@@ -49,13 +55,48 @@ const Down = styled.div`
     width: 100%;
 `
 
+async function getAmountOutByAmountIn(PairId: string, restUrl: string, inp: number, action: string): Promise<string> {
+    if (inp == 0) {
+        return "0"
+    }
+    let res = await fetch(restUrl + `/core/stable/v1beta1/getAmountOutByAmountIn/${PairId}/${inp * 10**6}/${action}`)
+    let amountOut = await res.json()
+    return (Number(amountOut.amountOut) / 10**6).toFixed(2)
+}
+
 export const ToField = () => {
+    const [ amtIn, s ] = useAmountInStore();
+    const [ amt, setAmt ] = useState('');
+    const [ tokenTo, s1 ] = useTokenTo();
+    const [ tokenFrom, s2 ] = useTokenFrom();
+
+    let tokenInfoTo = (tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenTo.base);
+    let tokenInfoFrom = (tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenFrom.base);
+
+    let pair: PairInfo | undefined;
+    let action: string = "";
+
+    if (tokenInfoFrom?.Type == TokenType.collateral){
+        pair = QUBE_TESTNET_PAIRS.find((p: any) => (p.DenomIn == tokenInfoFrom?.Denom) && (p.DenomOut == tokenInfoTo?.Denom) );
+        action = "mint"
+    } else if (tokenInfoFrom?.Type == TokenType.qAsset){
+        pair = QUBE_TESTNET_PAIRS.find((p: any) => (p.DenomIn == tokenInfoTo?.Denom) && (p.DenomOut == tokenInfoFrom?.Denom));
+        action = "burn"
+    }
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => 
+            getAmountOutByAmountIn(String(pair?.PairId), QUBE_TESTNET_INFO.rest, Number(amtIn.amt), String(action)).then(amountOut => setAmt(amountOut)), 
+        1000);
+        return () => clearTimeout(timeoutId);
+    }, [amtIn]);
+
     return(
         <ConvertTo>
             <ToFieldText>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount>0</ToFieldOutputAmount>
+                <ToFieldOutputAmount>{amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

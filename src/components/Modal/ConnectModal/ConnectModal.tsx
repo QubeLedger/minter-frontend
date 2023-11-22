@@ -6,6 +6,7 @@ import loop from '../../../assets/svg/loop.svg'
 import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
 import { useWallet } from '../../../hooks/useWallet';
+import { disconnect } from 'process';
 
 
 const ModalDialogOverlay = animated(DialogOverlay);
@@ -102,14 +103,27 @@ const StyledDialogContent = styled(ModalDialogContent) `
 `
 
 
+
 export const ConnectExample = () => {
     let walletAddr: string = "";
 
-    const [ connectWallet, _ ] = useConnectKeplrWalletStore();
+    const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
     const [ wallet, setWallet ] = useWallet();
     const [ showDialog, setShowDialog] = React.useState(false);
-    const open = () => setShowDialog(true);
-    const close = () => setShowDialog(false);
+    const open = () => {setShowDialog(true)};
+    const close = () => {setShowDialog(false)};
+
+    const disconnect = () => {
+        setWallet({
+            init: false,
+            wallet: null,
+            type: ""
+        });
+        setConnectKeplrWalletStore({
+            connected: false
+        })
+        close()
+    }
 
     if(wallet.type == "keplr") {
         walletAddr = String(wallet.wallet.bech32Address).slice(0,5) + '..';
@@ -117,7 +131,7 @@ export const ConnectExample = () => {
 
     return (
       <div>
-        <OpenButton onClick={open}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
+        <OpenButton onClick={wallet.init == false? open : disconnect}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
         <StyledDialogOvelay isOpen={showDialog && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>              

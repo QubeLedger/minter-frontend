@@ -12,7 +12,6 @@ export async function ConnectKeplr(): Promise<[boolean, any]> {
         } else {
                 if ((window as any).keplr.experimentalSuggestChain) {
                         try {
-                                console.log(QUBE_TESTNET_INFO)
                                 await (window as any).keplr.experimentalSuggestChain({
                                         chainId: QUBE_TESTNET_INFO.chainId,
                                         chainName: QUBE_TESTNET_INFO.chainName,
