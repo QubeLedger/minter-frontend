@@ -2,9 +2,11 @@ import React from 'react';
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
 import { animated } from '@react-spring/web';
-import { Tokens } from '../../Tokens/Tokens';
 import loop from '../../../assets/svg/loop.svg'
-import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnestWallets';
+import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
+import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
+import { useWallet } from '../../../hooks/useWallet';
+
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -101,14 +103,22 @@ const StyledDialogContent = styled(ModalDialogContent) `
 
 
 export const ConnectExample = () => {
-    const [showDialog, setShowDialog] = React.useState(false);
+    let walletAddr: string = "";
+
+    const [ connectWallet, _ ] = useConnectKeplrWalletStore();
+    const [ wallet, setWallet ] = useWallet();
+    const [ showDialog, setShowDialog] = React.useState(false);
     const open = () => setShowDialog(true);
     const close = () => setShowDialog(false);
-  
+
+    if(wallet.type == "keplr") {
+        walletAddr = String(wallet.wallet.bech32Address).slice(0,5) + '..';
+    }
+
     return (
       <div>
-        <OpenButton onClick={open}>Connect</OpenButton>
-        <StyledDialogOvelay isOpen={showDialog} onDismiss={close}>
+        <OpenButton onClick={open}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
+        <StyledDialogOvelay isOpen={showDialog && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>              
                     <CloseButton onClick={close}>

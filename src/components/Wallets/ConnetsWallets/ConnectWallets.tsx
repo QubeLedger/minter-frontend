@@ -1,6 +1,9 @@
 import styled from 'styled-components' 
 import keplr from '../../../assets/svg/Keplr.svg'
 import leap from '../../../assets/svg/LeapWallet.svg'
+import { ConnectKeplr } from '../../../connection/keplr'
+import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore'
+import { useWallet } from '../../../hooks/useWallet'
 
 const ArrWallets = styled.div`
     width: 100%;
@@ -64,9 +67,16 @@ const WalletsTextH5 = styled.h5`
 
 
 export const ConnectWallets = () => {
+    const [ connectWallet, setConnectWallet ] = useConnectKeplrWalletStore();
+    const [ wallet, setWallet ] = useWallet();
+    let ConnectKeplrHandler = async () => {
+        let [connected, wallet] = await ConnectKeplr()
+        setConnectWallet({connected})
+        setWallet({init: true, wallet: wallet, type: "keplr"})
+    }
     return(
         <ArrWallets>
-            <WalletFields>
+            <WalletFields onClick={ConnectKeplrHandler}>
                 <Img src={keplr}></Img>
                 <WalletsTextH3>Keplr</WalletsTextH3>
             </WalletFields>

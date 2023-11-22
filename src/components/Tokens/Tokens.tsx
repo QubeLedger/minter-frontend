@@ -1,6 +1,7 @@
 import styled from 'styled-components' 
 import qube from '../../assets/QubeLogo.jpg'
 import atom from '../../assets/svg/AtomLogo.svg'
+import { TOKEN_INFO_COLLATERAL, TOKEN_INFO_QASSET } from '../../constants';
 
 const Arrtokens = styled.div`
     width: 100%;
@@ -52,35 +53,38 @@ const TokensTextH5 = styled.h5`
     color: grey;
 `
 
-
-
-export const Tokens = () => {
+export const TokensCollateral = () => {
+    const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
+        <TokenFields>
+            <Img src={token.Logo}></Img>
+            <TokensText>
+                <TokensTextH3>{token.Base}</TokensTextH3>
+                <TokensTextH5>{token.Network}</TokensTextH5>
+            </TokensText>
+            <TokensTextH2Number>0</TokensTextH2Number>
+        </TokenFields>       
+    )
     return(
         <Arrtokens>
-            <TokenFields>
-                <Img src={qube}></Img>
-                <TokensText>
-                    <TokensTextH3>USQ</TokensTextH3>
-                    <TokensTextH5>Cosmos Hub</TokensTextH5>
-                </TokensText>
-                <TokensTextH2Number>0</TokensTextH2Number>
-            </TokenFields>
-            <TokenFields>
-                <Img src={atom}></Img>
-                <TokensText>
-                    <TokensTextH3>ATOM</TokensTextH3>
-                    <TokensTextH5>Cosmos Hub</TokensTextH5>
-                </TokensText>
-                <TokensTextH2Number>0</TokensTextH2Number>
-            </TokenFields>
-            <TokenFields>
-                <Img src={qube}></Img>
-                <TokensText>
-                    <TokensTextH3>USQ</TokensTextH3>
-                    <TokensTextH5>Cosmos Hub</TokensTextH5>
-                </TokensText>
-                <TokensTextH2Number>0</TokensTextH2Number>
-            </TokenFields>
+            {tokens}
+        </Arrtokens>
+    )
+}
+
+export const TokensQAsset = () => {
+    const tokens = TOKEN_INFO_QASSET.map((token) => 
+        <TokenFields>
+            <Img src={token.Logo}></Img>
+            <TokensText>
+                <TokensTextH3>{token.Base}</TokensTextH3>
+                <TokensTextH5>{token.Network}</TokensTextH5>
+            </TokensText>
+            <TokensTextH2Number>0</TokensTextH2Number>
+        </TokenFields>       
+    )
+    return(
+        <Arrtokens>
+            {tokens}
         </Arrtokens>
     )
 }

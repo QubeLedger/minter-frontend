@@ -19,6 +19,7 @@ const BalanceText = styled.a`
 `
 
 export const BalanceButtonFrom = () => {
+    let balance: number = 0;
     return(
         <ButtonBalance>
             <BalanceText>Available: 10.059 ATOM</BalanceText>

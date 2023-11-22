@@ -2,14 +2,11 @@ import React from 'react';
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
 import { animated } from '@react-spring/web';
-import { Tokens } from '../../Tokens/Tokens';
+import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import loop from '../../../assets/svg/loop.svg'
 import atom from '../../../assets/svg/AtomLogo.svg'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
-
-const Open = () =>{
-    console.log(123)
-}
+import { useTokenFrom } from '../../../hooks/useTokenFrom';
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -141,12 +138,19 @@ export const TokenModalFrom = () => {
     const [showDialog, setShowDialog] = React.useState(false);
     const open = () => setShowDialog(true);
     const close = () => setShowDialog(false);
-  
+    const [tokenFrom, _] = useTokenFrom();
+    let TokenModal;
+    if (tokenFrom.type == "collateral") {
+        TokenModal = <TokensCollateral></TokensCollateral>;
+    } else {
+        TokenModal = <TokensQAsset></TokensQAsset>;
+    }
+
     return (
       <div>
-        <OpenButton onClick={Open}>
-            <PopupImg src={atom}></PopupImg>
-            <PopupTextH3>ATOM</PopupTextH3>
+        <OpenButton onClick={open}>
+            <PopupImg src={tokenFrom.logo}></PopupImg>
+            <PopupTextH3>{tokenFrom.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
         <StyledDialogOvelay isOpen={showDialog} onDismiss={close}>
@@ -161,7 +165,7 @@ export const TokenModalFrom = () => {
                     <LoopImg src={loop}></LoopImg>
                     <SearchToken placeholder='Search'></SearchToken>
                 </SearchDiv>
-                <Tokens></Tokens>
+                {TokenModal}
             </StyledDialogContent>
         </StyledDialogOvelay>
       </div>

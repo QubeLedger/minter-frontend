@@ -11,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/QubeLedger/minter-frontend/issues"
   },
-  "homepage": "https://github.com/QubeLedger/minter-frontend#readme",
   "dependencies": {
     "@reach/dialog": "^0.10.3",
     "@react-spring/web": "^9.7.3",
