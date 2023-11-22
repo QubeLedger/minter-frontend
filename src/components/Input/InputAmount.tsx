@@ -8,7 +8,6 @@ const FromInputAmount = styled.input`
     text-align: right;
     color: rgb(220,220,220);
     font-size: 24px;
-    padding-right: 15px;
     margin-right: 8px;
     outline-width: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
