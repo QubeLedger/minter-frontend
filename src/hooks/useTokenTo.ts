@@ -7,6 +7,6 @@ interface Token {
         type: string
 }
 
-const defaultState: Token = { logo: USQLogo, base: "USQ", type: "qasset" };
+const defaultState: Token = { logo: "", base: "Select token", type: "qasset" };
 
 export const [useTokenTo] = createStore(defaultState);

@@ -7,6 +7,8 @@ import loop from '../../../assets/svg/loop.svg'
 import atom from '../../../assets/svg/AtomLogo.svg'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom';
+import { useShowModalFrom } from '../../../hooks/useShowModal';
+
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -135,9 +137,10 @@ const StyledDialogContent = styled(ModalDialogContent) `
 
 
 export const TokenModalFrom = () => {
+    const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [showDialog, setShowDialog] = React.useState(false);
-    const open = () => setShowDialog(true);
-    const close = () => setShowDialog(false);
+    const open = () => setShowModalFrom({b: true});
+    const close = () => setShowModalFrom({b: false});
     const [tokenFrom, _] = useTokenFrom();
     let TokenModal;
     if (tokenFrom.type == "collateral") {
@@ -153,7 +156,7 @@ export const TokenModalFrom = () => {
             <PopupTextH3>{tokenFrom.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
-        <StyledDialogOvelay isOpen={showDialog} onDismiss={close}>
+        <StyledDialogOvelay isOpen={showModalFrom.b} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>
                     <ModalText>Select a token</ModalText>

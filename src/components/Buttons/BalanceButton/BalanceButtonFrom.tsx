@@ -39,9 +39,11 @@ export const BalanceButtonFrom = () => {
     const [balanceStore, setBalanceStore] = useBalanceStore();
 
     if (wallet.init == true) {
-        let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-        let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
-        getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price); setBalanceStore({amt: balance, denom: tokenFrom.base})})
+        try {
+            let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+            let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
+            getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price); setBalanceStore({amt: balance, denom: tokenFrom.base})})
+        } catch {}
     }
 
     return(

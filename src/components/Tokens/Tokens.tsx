@@ -2,6 +2,12 @@ import styled from 'styled-components'
 import qube from '../../assets/QubeLogo.jpg'
 import atom from '../../assets/svg/AtomLogo.svg'
 import { TOKEN_INFO_COLLATERAL, TOKEN_INFO_QASSET } from '../../constants';
+import { useTokenFrom } from '../../hooks/useTokenFrom';
+import { useTokenTo } from '../../hooks/useTokenTo';
+import { TokenType } from '../../constants/tokens';
+import { useShowModalFrom, useShowModalTo } from '../../hooks/useShowModal';
+
+
 
 const Arrtokens = styled.div`
     width: 100%;
@@ -54,8 +60,20 @@ const TokensTextH5 = styled.h5`
 `
 
 export const TokensCollateral = () => {
+    const [ _, setTokenFrom ] = useTokenFrom();
+    const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
+    const [ showModalTo, setShowModalTo ] = useShowModalTo();
+
     const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
-        <TokenFields>
+        <TokenFields onClick={() => {
+            setTokenFrom({
+                logo: token.Logo,
+                base: token.Base,
+                type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+            })
+            setShowModalFrom({b: false})
+            setShowModalTo({b: false})
+        }}>
             <Img src={token.Logo}></Img>
             <TokensText>
                 <TokensTextH3>{token.Base}</TokensTextH3>
@@ -72,8 +90,20 @@ export const TokensCollateral = () => {
 }
 
 export const TokensQAsset = () => {
+    const [ _, setTokenTo] = useTokenTo();
+    const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
+    const [ showModalTo, setShowModalTo ] = useShowModalTo();
+    
     const tokens = TOKEN_INFO_QASSET.map((token) => 
-        <TokenFields>
+        <TokenFields onClick={() => {
+            setTokenTo({
+                logo: token.Logo,
+                base: token.Base,
+                type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+            })
+            setShowModalFrom({b: false})
+            setShowModalTo({b: false})
+        }}>
             <Img src={token.Logo}></Img>
             <TokensText>
                 <TokensTextH3>{token.Base}</TokensTextH3>

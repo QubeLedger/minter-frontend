@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { useEffect, useState } from "react";
-import { InfoBlock } from '../../Info/InfoBlock'
+import { useState } from "react";
 import ArrowSvg from '../../../assets/svg/InfoArrrowDown.svg'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
@@ -50,11 +49,24 @@ export const InfoButton = () => {
     const [tokenTo, set] = useTokenTo();
     const [price, setPrice] = useState('');
 
-    getPrice(tokenFrom, price, tokenTo).then(price => setPrice(price))
-    return(
-        <ButtonInfoMain>
+    let ButtonInfoMainV = <ButtonInfoMain></ButtonInfoMain>;
+
+    if(tokenTo.base != "Select token" && tokenTo.logo != "") {
+        try {
+            getPrice(tokenFrom, price, tokenTo).then(price => setPrice(price))
+        } catch {}
+        ButtonInfoMainV = <ButtonInfoMain>
             1 {tokenFrom.base} = {price} {tokenTo.base}
             <InfoImg src={ArrowSvg}></InfoImg>
+        </ButtonInfoMain>
+    }
+
+    return(
+        <ButtonInfoMain>
+            {tokenTo.base != "Select token" && tokenTo.logo != "" ? <ButtonInfoMain>
+                1 {tokenFrom.base} = {price} {tokenTo.base}
+                <InfoImg src={ArrowSvg}></InfoImg>
+            </ButtonInfoMain> : <></>}
         </ButtonInfoMain>
     )
 }

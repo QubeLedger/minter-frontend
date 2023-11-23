@@ -55,7 +55,7 @@ export const SwapButton = () => {
     if (wallet.init == false) {
         button = <ConvertSwapButtonNonActive><ButtonSwapText>Connect wallet</ButtonSwapText> </ConvertSwapButtonNonActive>
     } else {
-        if (amtIn.amt == "0") {
+        if (amtIn.amt == "") {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Enter {tokenFrom.base} amount</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else if (Number(amtIn.amt) > Number(balance.amt)) {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Insufficient {tokenFrom.base} balance</ButtonSwapText> </ConvertSwapButtonNonActive>

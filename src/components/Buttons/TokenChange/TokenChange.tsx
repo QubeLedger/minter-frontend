@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import Swap from '../../../assets/ConvertSwap.png'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
 import { useTokenTo } from '../../../hooks/useTokenTo'
+import { useAmountInStore } from '../../../hooks/useAmountInStore'
+import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
 
 
 const TokenChangeDiv = styled.div `
@@ -23,6 +25,8 @@ const SwapImage = styled.img`
 export const TokenChange = () => {
     const [tokenFrom, setTokenFrom] = useTokenFrom();
     const [tokenTo, setTokenTo] = useTokenTo();
+    //const [amountIn, setAmountIn] = useAmountInStore();
+    //const [amountOut, setAmountOut] = useAmountOutStore();
 
     let Handler = async () => {
         let oldTokenFrom = tokenFrom

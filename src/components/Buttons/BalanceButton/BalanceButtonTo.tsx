@@ -37,14 +37,21 @@ export const BalanceButtonTo = () => {
     const [tokenTo, _] = useTokenTo();
     const [balance, setBalance] = useState('0');
 
-    if (wallet.init == true) {
-        let tokens = tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-        let tokenInfo = tokens.find((token) => token.Base == tokenTo.base)
-        getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
+    let BalanceTextV;
+
+    if((tokenTo.base != "Select token") && tokenTo.logo != "") {
+        try {
+            if (wallet.init == true) {
+                let tokens = tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+                let tokenInfo = tokens.find((token) => token.Base == tokenTo.base)
+                getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
+            }
+        } catch {}
+        BalanceTextV = <BalanceText>Available: {balance} {tokenTo.base}</BalanceText>
     }
     return(
         <ButtonBalance>
-            <BalanceText>Available: {balance} {tokenTo.base}</BalanceText>
+            {BalanceTextV}
         </ButtonBalance>
     )
 }

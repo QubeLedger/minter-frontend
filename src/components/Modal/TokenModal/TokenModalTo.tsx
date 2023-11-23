@@ -7,6 +7,7 @@ import usq from '../../../assets/USQLogo.png'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import { useTokenTo } from '../../../hooks/useTokenTo';
+import { useShowModalTo } from '../../../hooks/useShowModal';
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -134,24 +135,39 @@ const StyledDialogContent = styled(ModalDialogContent) `
 
 
 export const TokenModalTo = () => {
-    const [showDialog, setShowDialog] = React.useState(false);
-    const open = () => setShowDialog(true);
-    const close = () => setShowDialog(false);
+    const [ showModalTo, setShowModalTo ] = useShowModalTo();
+    const open = () => setShowModalTo({b: true});
+    const close = () => setShowModalTo({b: false});
     const [tokenTo, _] = useTokenTo();
+
     let TokenModal;
-    if (tokenTo.type == "collateral") {
-        TokenModal = <TokensCollateral></TokensCollateral>;
-    } else {
-        TokenModal = <TokensQAsset></TokensQAsset>;
+    let TokenOpenButton;
+
+    switch (tokenTo.type) {
+        case "collateral":
+            TokenModal = <TokensCollateral></TokensCollateral>;
+            break;
+        case "qasset":
+            TokenModal = <TokensQAsset></TokensQAsset>;
+            break;
     }
-    return (
-      <div>
-        <OpenButton onClick={open}>
+
+    if((tokenTo.base == "Select token") && tokenTo.logo == "") {
+        TokenOpenButton = <OpenButton onClick={open}>
+            <PopupTextH3>{tokenTo.base}</PopupTextH3>
+            <ModalArrowImg src={arrow}></ModalArrowImg>
+        </OpenButton>
+    } else {
+        TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenTo.logo}></PopupImg>
             <PopupTextH3>{tokenTo.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
-        <StyledDialogOvelay isOpen={showDialog} onDismiss={close}>
+    }
+    return (
+      <div>
+        {TokenOpenButton}
+        <StyledDialogOvelay isOpen={showModalTo.b} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>
                     <ModalText>Select a token</ModalText>
