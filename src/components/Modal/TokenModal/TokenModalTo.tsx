@@ -3,7 +3,6 @@ import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
 import { animated } from '@react-spring/web';
 import loop from '../../../assets/svg/loop.svg'
-import usq from '../../../assets/USQLogo.png'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import { useTokenTo } from '../../../hooks/useTokenTo';

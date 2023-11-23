@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ConnectButton } from '../../Buttons/ConnectButton/ConnectButton'
-import Qubelogo from '../../../assets/QubeLogo.png'
+import Qubelogo from '../../../assets/svg/QubeLogo.svg'
 import { ToggleTheme } from './ToggleTheme'
 
 const Header = styled.div `

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Swap from '../../../assets/ConvertSwap.png'
+import ConvertSwap from '../../../assets/svg/ConvertSwap.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { useAmountInStore } from '../../../hooks/useAmountInStore'
@@ -48,7 +48,7 @@ export const TokenChange = () => {
 
     return(
         <TokenChangeDiv onClick={Handler}>
-            <SwapImage src={Swap}></SwapImage>
+            <SwapImage src={ConvertSwap}></SwapImage>
         </TokenChangeDiv>
     )
 }
