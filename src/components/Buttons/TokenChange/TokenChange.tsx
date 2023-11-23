@@ -25,8 +25,8 @@ const SwapImage = styled.img`
 export const TokenChange = () => {
     const [tokenFrom, setTokenFrom] = useTokenFrom();
     const [tokenTo, setTokenTo] = useTokenTo();
-    //const [amountIn, setAmountIn] = useAmountInStore();
-    //const [amountOut, setAmountOut] = useAmountOutStore();
+    const [amountIn, setAmountIn] = useAmountInStore();
+    const [amountOut, setAmountOut] = useAmountOutStore();
 
     let Handler = async () => {
         let oldTokenFrom = tokenFrom
@@ -40,6 +40,10 @@ export const TokenChange = () => {
             base: oldTokenFrom.base,
             type: oldTokenFrom.type
         })
+
+        let oldAmountIn = amountIn
+        setAmountIn(amountOut);
+        setAmountOut(oldAmountIn);
     }
 
     return(

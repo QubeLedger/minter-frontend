@@ -1,7 +1,7 @@
 import { createStore } from './store';
 import AtomLogo from "../assets/svg/AtomLogo.svg"
 
-interface Token {
+export interface Token {
         logo: string;
         base: string;
         type: string

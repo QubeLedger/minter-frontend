@@ -8,6 +8,7 @@ import { PairInfo, QUBE_TESTNET_PAIRS } from '../../../constants/pair'
 import { TokenType } from '../../../constants/tokens'
 import { useEffect, useState } from 'react'
 import { useAmountInStore } from '../../../hooks/useAmountInStore'
+import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
 
 
 const ConvertTo = styled.div `
@@ -55,12 +56,12 @@ const Down = styled.div`
     width: 100%;
 `
 
-async function getAmountOutByAmountIn(PairId: string, restUrl: string, inp: number, action: string, old: string): Promise<string> {
+async function getAmountOutByAmountIn(PairId: string, restUrl: string, inp: number, action: string, old: string, dec: number): Promise<string> {
     try {
         if (inp == 0) {
             return "0"
         }
-        let res = await fetch(restUrl + `/core/stable/v1beta1/getAmountOutByAmountIn/${PairId}/${inp * 10**6}/${action}`)
+        let res = await fetch(restUrl + `/core/stable/v1beta1/getAmountOutByAmountIn/${PairId}/${(inp * 10**dec).toFixed(0)}/${action}`)
         let amountOut = await res.json()
         return (Number(amountOut.amountOut) / 10**6).toFixed(2)
     } catch {
@@ -70,7 +71,7 @@ async function getAmountOutByAmountIn(PairId: string, restUrl: string, inp: numb
 
 export const ToField = () => {
     const [ amtIn, setAmtIn ] = useAmountInStore();
-    const [ amtOut, setAmtOut ] = useAmountInStore();
+    const [ amtOut, setAmtOut ] = useAmountOutStore();
     const [ amt, setAmt ] = useState('');
     const [ amtOld, setAmtOld ] = useState('');
     const [ tokenTo, setTokenTo] = useTokenTo();
@@ -92,9 +93,9 @@ export const ToField = () => {
 
     useEffect(() => {
         const timeoutId = setTimeout(() => 
-            getAmountOutByAmountIn(String(pair?.PairId), QUBE_TESTNET_INFO.rest, Number(amtIn.amt), String(action), amt)
+            getAmountOutByAmountIn(String(pair?.PairId), QUBE_TESTNET_INFO.rest, Number(amtIn.amt), String(action), amt, Number(tokenInfoFrom?.Decimals))
             .then(amountOut => {
-                Number.isNaN(Number(amountOut)) ? setAmt("0") :setAmt(amountOut)
+                Number.isNaN(Number(amountOut)) ? setAmtOut({amt: "0"}) :setAmtOut({amt: amountOut})
             }), 
         1500);
         return () => clearTimeout(timeoutId);
@@ -105,7 +106,7 @@ export const ToField = () => {
             <ToFieldText>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount>{amt}</ToFieldOutputAmount>
+                <ToFieldOutputAmount>{amtOut.amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

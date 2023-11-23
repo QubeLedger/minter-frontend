@@ -1,7 +1,7 @@
 import { createStore } from './store';
 import USQLogo from "../assets/USQLogo.png";
 
-interface Token {
+export interface Token {
         logo: string;
         base: string;
         type: string

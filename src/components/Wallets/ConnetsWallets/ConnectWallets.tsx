@@ -4,6 +4,8 @@ import leap from '../../../assets/svg/LeapWallet.svg'
 import { ConnectKeplr } from '../../../connection/keplr'
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore'
 import { useWallet } from '../../../hooks/useWallet'
+import { InitSigner } from '../../../connection/stargate'
+import { useClient } from '../../../hooks/useClient'
 
 const ArrWallets = styled.div`
     width: 100%;
@@ -68,11 +70,15 @@ const WalletsTextH5 = styled.h5`
 
 export const ConnectWallets = () => {
     const [ connectWallet, setConnectWallet ] = useConnectKeplrWalletStore();
+    const [ _, setClient ] = useClient();
     const [ wallet, setWallet ] = useWallet();
     let ConnectKeplrHandler = async () => {
         let [connected, wallet] = await ConnectKeplr()
         setConnectWallet({connected})
         setWallet({init: true, wallet: wallet, type: "keplr"})
+        
+        let client = await InitSigner(wallet);
+        setClient(client)
     }
     return(
         <ArrWallets>

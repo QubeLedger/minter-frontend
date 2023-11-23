@@ -1,10 +1,4 @@
 import { QUBE_TESTNET_INFO } from "../constants";
-import { useConnectKeplrWalletStore } from "../hooks/useConnectKeplrWalletStore";
-
-function WalletConnected() {
-        const [ connectWallet, setConnectWallet ] = useConnectKeplrWalletStore();
-        setConnectWallet({ connected: true })
-}
 
 export async function ConnectKeplr(): Promise<[boolean, any]> {
         if (!(window as any).getOfflineSigner || !(window as any).keplr) {

@@ -3,6 +3,9 @@ import { useWallet } from '../../../hooks/useWallet';
 import { useAmountInStore } from '../../../hooks/useAmountInStore';
 import { useTokenFrom } from '../../../hooks/useTokenFrom';
 import { useBalanceStore } from '../../../hooks/useBalanceStore';
+import { swap } from '../../../functions/swap';
+import { useTokenTo } from '../../../hooks/useTokenTo';
+import { useClient } from '../../../hooks/useClient';
 
 const ConvertSwapButton = styled.div `
     width:85%;
@@ -50,6 +53,8 @@ export const SwapButton = () => {
     const [amtIn, s ] = useAmountInStore();
     const [tokenFrom, s1 ] = useTokenFrom();
     const [balance, s2] = useBalanceStore();
+    const [tokenTo, s3 ] = useTokenTo();
+    const [client, s4] = useClient();
 
     let button;
     if (wallet.init == false) {
@@ -60,7 +65,7 @@ export const SwapButton = () => {
         } else if (Number(amtIn.amt) > Number(balance.amt)) {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Insufficient {tokenFrom.base} balance</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else {
-            button = <ConvertSwapButton><ButtonSwapText>Swap</ButtonSwapText> </ConvertSwapButton>
+            button = <ConvertSwapButton onClick={() => {swap(amtIn, tokenFrom, tokenTo, wallet, client)}}><ButtonSwapText>Swap</ButtonSwapText> </ConvertSwapButton>
         }
     }
 

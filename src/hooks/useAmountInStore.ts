@@ -1,7 +1,7 @@
 import { createStore } from './store';
 
 
-interface AmountIn {
+export interface AmountIn {
         amt: string;
 }
 

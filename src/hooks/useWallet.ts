@@ -1,6 +1,6 @@
 import { createStore } from './store';
 
-interface Wallet {
+export interface Wallet {
         init: boolean;
         wallet: any;
         type: string
