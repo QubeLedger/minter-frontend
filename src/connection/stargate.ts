@@ -3,9 +3,8 @@ import { QUBE_TESTNET_INFO } from "../constants";
 import { Registry } from "@cosmjs/proto-signing";
 import { defaultRegistryTypes, GasPrice } from "@cosmjs/stargate";
 import { MsgBurn, MsgMint, typeUrlMsgBurn, typeUrlMsgMint } from "../constants/cosmos/proto/stable/tx";
-import { Wallet } from "../hooks/useWallet";
 
-export async function InitSigner(wallet: Wallet) {
+export async function InitSigner() {
         const reg = new Registry(defaultRegistryTypes)
         reg.register(typeUrlMsgMint, MsgMint)
         reg.register(typeUrlMsgBurn, MsgBurn)
@@ -23,10 +22,5 @@ export async function InitSigner(wallet: Wallet) {
                 }
         );
 
-        console.log({init: true, client: client, accounts: accounts})
-
         return ({init: true, client: client, accounts: accounts});
-
-
-
 }
