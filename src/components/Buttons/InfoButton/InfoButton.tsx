@@ -60,10 +60,10 @@ export const InfoButton = () => {
             <InfoImg src={ArrowSvg}></InfoImg>
         </ButtonInfoMain>
     }
-
+    
     return(
         <ButtonInfoMain>
-            {tokenTo.base != "Select token" && tokenTo.logo != "" ? <ButtonInfoMain>
+            {((tokenTo.base != "Select token" && tokenTo.logo != "") && (tokenFrom.base != "Select token" && tokenFrom.logo != ""))? <ButtonInfoMain>
                 1 {tokenFrom.base} = {price} {tokenTo.base}
                 <InfoImg src={ArrowSvg}></InfoImg>
             </ButtonInfoMain> : <></>}

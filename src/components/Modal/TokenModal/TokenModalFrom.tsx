@@ -143,19 +143,33 @@ export const TokenModalFrom = () => {
     const close = () => setShowModalFrom({b: false});
     const [tokenFrom, _] = useTokenFrom();
     let TokenModal;
-    if (tokenFrom.type == "collateral") {
-        TokenModal = <TokensCollateral></TokensCollateral>;
-    } else {
-        TokenModal = <TokensQAsset></TokensQAsset>;
+
+    switch (tokenFrom.type) {
+        case "collateral":
+            TokenModal = <TokensCollateral></TokensCollateral>;
+            break;
+        case "qasset":
+            TokenModal = <TokensQAsset></TokensQAsset>;
+            break;
     }
 
-    return (
-      <div>
-        <OpenButton onClick={open}>
+    let TokenOpenButton;
+    if((tokenFrom.base == "Select token") && tokenFrom.logo == "") {
+        TokenOpenButton = <OpenButton onClick={open}>
+            <PopupTextH3>{tokenFrom.base}</PopupTextH3>
+            <ModalArrowImg src={arrow}></ModalArrowImg>
+        </OpenButton>
+    } else {
+        TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenFrom.logo}></PopupImg>
             <PopupTextH3>{tokenFrom.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
+    }
+
+    return (
+      <div>
+        {TokenOpenButton}
         <StyledDialogOvelay isOpen={showModalFrom.b} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>

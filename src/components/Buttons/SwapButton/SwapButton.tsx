@@ -62,12 +62,15 @@ export const SwapButton = () => {
     if (wallet.init == false) {
         button = <ConvertSwapButtonNonActive onClick={() => {setWalletModalStatus({b: true})}}><ButtonSwapText>Connect wallet</ButtonSwapText> </ConvertSwapButtonNonActive>
     } else {
-        if (amtIn.amt == "") {
+        if (amtIn.amt == "" || "0") {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Enter {tokenFrom.base} amount</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else if (Number(amtIn.amt) > Number(balance.amt)) {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Insufficient {tokenFrom.base} balance</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else {
             button = <ConvertSwapButton onClick={() => {swap(amtIn, tokenFrom, tokenTo, wallet, client)}}><ButtonSwapText>Swap</ButtonSwapText> </ConvertSwapButton>
+        } 
+        if ((tokenFrom.base == "Select token") || (tokenTo.base == "Select token")) {
+            button = <ConvertSwapButtonNonActive><ButtonSwapText>Select token</ButtonSwapText> </ConvertSwapButtonNonActive>
         }
     }
 

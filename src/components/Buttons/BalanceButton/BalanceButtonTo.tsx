@@ -25,11 +25,15 @@ const BalanceText = styled.a`
 `
 
 async function getBalance(address: string, restUrl: string, denom: string, dec: number): Promise<string> {
-    let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
-    let balanceJson = await res.json()
-    let balanceArray = balanceJson.balances
-    let balance = balanceArray.find((bal: any) => bal.denom == denom)
-    return (Number(balance.amount) / (10 ** dec)).toFixed(3)
+    try {
+        let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
+        let balanceJson = await res.json()
+        let balanceArray = balanceJson.balances
+        let balance = balanceArray.find((bal: any) => bal.denom == denom)
+        return (Number(balance.amount) / (10 ** dec)).toFixed(3)
+    } catch(e) {
+        return "0"
+    }
 }
 
 export const BalanceButtonTo = () => {

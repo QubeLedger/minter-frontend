@@ -25,11 +25,15 @@ const BalanceText = styled.a`
 `
 
 async function getBalance(address: string, restUrl: string, denom: string, dec: number): Promise<string> {
-    let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
-    let balanceJson = await res.json()
-    let balanceArray = balanceJson.balances
-    let balance = balanceArray.find((bal: any) => bal.denom == denom)
-    return (Number(balance.amount) / (10 ** dec)).toFixed(3)
+    try {
+        let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
+        let balanceJson = await res.json()
+        let balanceArray = balanceJson.balances
+        let balance = balanceArray.find((bal: any) => bal.denom == denom)
+        return (Number(balance.amount) / (10 ** dec)).toFixed(3)
+    } catch (e) {
+        return "0"
+    }
 }
 
 export const BalanceButtonFrom = () => {
@@ -38,17 +42,22 @@ export const BalanceButtonFrom = () => {
     const [balance, setBalance] = useState('0');
     const [balanceStore, setBalanceStore] = useBalanceStore();
 
-    if (wallet.init == true) {
+    let BalanceTextV;
+
+    if((tokenFrom.base != "Select token") && tokenFrom.logo != "") {
         try {
-            let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-            let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
-            getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price); setBalanceStore({amt: balance, denom: tokenFrom.base})})
+            if (wallet.init == true) {
+                let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+                let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
+                getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
+            }
         } catch {}
+        BalanceTextV = <BalanceText>Available: {balance} {tokenFrom.base}</BalanceText>
     }
 
     return(
         <ButtonBalance>
-            <BalanceText>Available: {balance} {tokenFrom.base}</BalanceText>
+            {BalanceTextV}
         </ButtonBalance>
     )
 }

@@ -60,17 +60,26 @@ const TokensTextH5 = styled.h5`
 `
 
 export const TokensCollateral = () => {
-    const [ _, setTokenFrom ] = useTokenFrom();
+    const [ tokenTo, setTokenTo] = useTokenTo();
+    const [ tokenFrom, setTokenFrom] = useTokenFrom();
     const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
 
     const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
         <TokenFields onClick={() => {
-            setTokenFrom({
-                logo: token.Logo,
-                base: token.Base,
-                type: token.Type == TokenType.collateral ? "collateral" : "qasset"
-            })
+            if(showModalFrom.b == true) {
+                setTokenFrom({
+                    logo: token.Logo,
+                    base: token.Base,
+                    type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+                })
+            } else if (showModalTo.b == true) {
+                setTokenTo({
+                    logo: token.Logo,
+                    base: token.Base,
+                    type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+                })
+            }
             setShowModalFrom({b: false})
             setShowModalTo({b: false})
         }}>
@@ -90,17 +99,26 @@ export const TokensCollateral = () => {
 }
 
 export const TokensQAsset = () => {
-    const [ _, setTokenTo] = useTokenTo();
+    const [ tokenTo, setTokenTo] = useTokenTo();
+    const [ tokenFrom, setTokenFrom] = useTokenFrom();
     const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
     
     const tokens = TOKEN_INFO_QASSET.map((token) => 
         <TokenFields onClick={() => {
-            setTokenTo({
-                logo: token.Logo,
-                base: token.Base,
-                type: token.Type == TokenType.collateral ? "collateral" : "qasset"
-            })
+            if(showModalFrom.b == true) {
+                setTokenFrom({
+                    logo: token.Logo,
+                    base: token.Base,
+                    type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+                })
+            } else if (showModalTo.b == true) {
+                setTokenTo({
+                    logo: token.Logo,
+                    base: token.Base,
+                    type: token.Type == TokenType.collateral ? "collateral" : "qasset"
+                })
+            }
             setShowModalFrom({b: false})
             setShowModalTo({b: false})
         }}>
