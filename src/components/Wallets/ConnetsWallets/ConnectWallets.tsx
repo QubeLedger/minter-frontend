@@ -72,6 +72,7 @@ export const ConnectWallets = () => {
     const [ connectWallet, setConnectWallet ] = useConnectKeplrWalletStore();
     const [ _, setClient ] = useClient();
     const [ wallet, setWallet ] = useWallet();
+    
     let ConnectKeplrHandler = async () => {
         let [connected, wallet] = await ConnectKeplr()
         setConnectWallet({connected})

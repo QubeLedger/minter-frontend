@@ -6,6 +6,7 @@ import { useBalanceStore } from '../../../hooks/useBalanceStore';
 import { swap } from '../../../functions/swap';
 import { useTokenTo } from '../../../hooks/useTokenTo';
 import { useClient } from '../../../hooks/useClient';
+import { useShowWalletModal } from '../../../hooks/useShowModal';
 
 const ConvertSwapButton = styled.div `
     width:85%;
@@ -55,10 +56,11 @@ export const SwapButton = () => {
     const [balance, s2] = useBalanceStore();
     const [tokenTo, s3 ] = useTokenTo();
     const [client, s4] = useClient();
+    const [ walletModalStatus, setWalletModalStatus] = useShowWalletModal();
 
     let button;
     if (wallet.init == false) {
-        button = <ConvertSwapButtonNonActive><ButtonSwapText>Connect wallet</ButtonSwapText> </ConvertSwapButtonNonActive>
+        button = <ConvertSwapButtonNonActive onClick={() => {setWalletModalStatus({b: true})}}><ButtonSwapText>Connect wallet</ButtonSwapText> </ConvertSwapButtonNonActive>
     } else {
         if (amtIn.amt == "") {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Enter {tokenFrom.base} amount</ButtonSwapText> </ConvertSwapButtonNonActive>

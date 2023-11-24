@@ -7,6 +7,7 @@ import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
 import { useWallet } from '../../../hooks/useWallet';
 import { disconnect } from 'process';
+import { useShowWalletModal } from '../../../hooks/useShowModal';
 
 
 const ModalDialogOverlay = animated(DialogOverlay);
@@ -109,9 +110,9 @@ export const ConnectExample = () => {
 
     const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
     const [ wallet, setWallet ] = useWallet();
-    const [ showDialog, setShowDialog] = React.useState(false);
-    const open = () => {setShowDialog(true)};
-    const close = () => {setShowDialog(false)};
+    const [ walletModalStatus, setWalletModalStatus] = useShowWalletModal();
+    const open = () => {setWalletModalStatus({b: true})};
+    const close = () => {setWalletModalStatus({b: false})};
 
     const disconnect = () => {
         setWallet({
@@ -132,7 +133,7 @@ export const ConnectExample = () => {
     return (
       <div>
         <OpenButton onClick={wallet.init == false? open : disconnect}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
-        <StyledDialogOvelay isOpen={showDialog && !connectWallet.connected} onDismiss={close}>
+        <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>              
                     <CloseButton onClick={close}>
