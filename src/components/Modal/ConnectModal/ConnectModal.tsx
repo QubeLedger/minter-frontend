@@ -127,7 +127,7 @@ export const ConnectExample = () => {
     }
 
     if(wallet.type == "keplr") {
-        walletAddr = String(wallet.wallet.bech32Address).slice(0,5) + '..';
+        walletAddr =  '..' + String(wallet.wallet.bech32Address).slice(37,43);
     }
 
     return (
@@ -149,4 +149,4 @@ export const ConnectExample = () => {
         </StyledDialogOvelay>
       </div>
     );
-  }
+}

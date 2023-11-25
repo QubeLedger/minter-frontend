@@ -3,7 +3,7 @@ import { createStore } from './store';
 
 export interface Coin {
         amt: string;
-        denom: string
+        denom: string;
 }
 
 export interface Coins {

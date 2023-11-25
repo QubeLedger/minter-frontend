@@ -1,11 +1,13 @@
 import styled from 'styled-components'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useWallet } from '../../../hooks/useWallet'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { TOKEN_INFO_QASSET, TOKEN_INFO_COLLATERAL } from '../../../constants'
-import { QUBE_TESTNET_INFO } from '../../../constants'
+import { UpdateBalances } from '../../../connection/balances';
+import { Coin, useBalancesStore } from '../../../hooks/useBalanceStore';
+import { useAmountOutStore } from '../../../hooks/useAmountOutStore';
 
-const ButtonBalance = styled.button`
+const ButtonBalance = styled.div`
    width: 100%;
    height: 100%;
    cursor: pointer;
@@ -24,38 +26,45 @@ const BalanceText = styled.a`
     text-align: right;
 `
 
-async function getBalance(address: string, restUrl: string, denom: string, dec: number): Promise<string> {
-    try {
-        let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
-        let balanceJson = await res.json()
-        let balanceArray = balanceJson.balances
-        let balance = balanceArray.find((bal: any) => bal.denom == denom)
-        return (Number(balance.amount) / (10 ** dec)).toFixed(3)
-    } catch(e) {
-        return "0"
-    }
+const getBalance = (balances: Array<Coin>, denom: string) => {
+    let res: string = "0";
+    balances.map((coin) => {
+        if(coin.denom == denom) {
+            res = coin.amt;
+        }
+    })
+    return (Number(res) / 10 ** 6).toFixed(3) == "0.000" ? "0" : (Number(res) / 10 ** 6).toFixed(3)
 }
+
 
 export const BalanceButtonTo = () => {
     const [ wallet, s ] = useWallet(); 
     const [tokenTo, _] = useTokenTo();
     const [balance, setBalance] = useState('0');
+    const [balances, setBalances] = useBalancesStore();
 
-    let BalanceTextV;
+    let BalanceButtonV;
+
+    async function update() {
+        if (wallet.init == true) {
+            let blns = await UpdateBalances(wallet, balances);
+            
+            let tokens = tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+            let tokenInfo = tokens.find((token) => token.Base == tokenTo.base)
+            setBalance(getBalance(blns, String(tokenInfo?.Denom)))
+        }
+    }
 
     if((tokenTo.base != "Select token") && tokenTo.logo != "") {
-        try {
-            if (wallet.init == true) {
-                let tokens = tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-                let tokenInfo = tokens.find((token) => token.Base == tokenTo.base)
-                getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
-            }
-        } catch {}
-        BalanceTextV = <BalanceText>Available: {balance} {tokenTo.base}</BalanceText>
-    }
-    return(
-        <ButtonBalance>
-            {BalanceTextV}
+        update()
+        BalanceButtonV = <ButtonBalance>
+            <BalanceText>Available: {balance} {tokenTo.base}</BalanceText>
         </ButtonBalance>
+    } else {
+        BalanceButtonV = <ButtonBalance></ButtonBalance>
+    }
+
+    return(
+        <>{BalanceButtonV}</>
     )
 }

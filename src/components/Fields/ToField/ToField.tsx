@@ -106,7 +106,7 @@ export const ToField = () => {
             <ToFieldText>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount>{amtOut.amt}</ToFieldOutputAmount>
+                <ToFieldOutputAmount placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

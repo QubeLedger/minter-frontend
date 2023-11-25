@@ -1,10 +1,11 @@
-import styled from 'styled-components'
-import { useState } from "react";
-import { useWallet } from '../../../hooks/useWallet'
-import { useTokenFrom } from '../../../hooks/useTokenFrom'
-import { TOKEN_INFO_QASSET, TOKEN_INFO_COLLATERAL } from '../../../constants'
-import { QUBE_TESTNET_INFO } from '../../../constants'
-import { useBalanceStore } from '../../../hooks/useBalanceStore';
+import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import { useWallet } from '../../../hooks/useWallet';
+import { useTokenFrom } from '../../../hooks/useTokenFrom';
+import { TOKEN_INFO_QASSET, TOKEN_INFO_COLLATERAL } from '../../../constants';
+import { Coin, useBalancesStore } from '../../../hooks/useBalanceStore';
+import { UpdateBalances } from '../../../connection/balances';
+import { useAmountInStore } from '../../../hooks/useAmountInStore';
 
 const ButtonBalance = styled.button`
    width: 100%;
@@ -24,40 +25,51 @@ const BalanceText = styled.a`
     font-size: 12px;
 `
 
-async function getBalance(address: string, restUrl: string, denom: string, dec: number): Promise<string> {
-    try {
-        let res = await fetch(restUrl + `/cosmos/bank/v1beta1/balances/${address}`)
-        let balanceJson = await res.json()
-        let balanceArray = balanceJson.balances
-        let balance = balanceArray.find((bal: any) => bal.denom == denom)
-        return (Number(balance.amount) / (10 ** dec)).toFixed(3)
-    } catch (e) {
-        return "0"
-    }
+const getBalance = (balances: Array<Coin>, denom: string) => {
+    let res: string = "0";
+    balances.map((coin) => {
+        if(coin.denom == denom) {
+            res = coin.amt;
+        }
+    })
+    return (Number(res) / 10 ** 6).toFixed(3) == "0.000" ? "0" : (Number(res) / 10 ** 6).toFixed(3)
 }
 
 export const BalanceButtonFrom = () => {
     const [ wallet, s ] = useWallet(); 
     const [tokenFrom, _] = useTokenFrom();
+    const [balances, setBalances] = useBalancesStore();
     const [balance, setBalance] = useState('0');
-    const [balanceStore, setBalanceStore] = useBalanceStore();
+    const [ amtIn, setAmtIn ] = useAmountInStore();
 
-    let BalanceTextV;
+    let BalanceButtonV;
+
+    const setAvailableBalance = (balance: string) => {
+        if((tokenFrom.base != "Select token") && tokenFrom.logo != "") {
+            setAmtIn({amt: balance})
+        }
+    }
+
+    async function update() {
+        if (wallet.init == true) {
+            let blns = await UpdateBalances(wallet, balances);
+            
+            let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+            let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
+            setBalance(getBalance(blns, String(tokenInfo?.Denom)))
+        }
+    }
 
     if((tokenFrom.base != "Select token") && tokenFrom.logo != "") {
-        try {
-            if (wallet.init == true) {
-                let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-                let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
-                getBalance(wallet.wallet.bech32Address, QUBE_TESTNET_INFO.rest, String(tokenInfo?.Denom), Number(tokenInfo?.Decimals)).then(price => {setBalance(price)})
-            }
-        } catch {}
-        BalanceTextV = <BalanceText>Available: {balance} {tokenFrom.base}</BalanceText>
+        update();
+        BalanceButtonV = <ButtonBalance onClick={() => setAvailableBalance(balance)}>
+            <BalanceText>Available: {balance} {tokenFrom.base}</BalanceText>
+        </ButtonBalance>
+    } else {
+        BalanceButtonV = <ButtonBalance></ButtonBalance>
     }
 
     return(
-        <ButtonBalance>
-            {BalanceTextV}
-        </ButtonBalance>
+        <>{BalanceButtonV}</>
     )
 }

@@ -7,7 +7,7 @@ import { useWallet } from '../../../hooks/useWallet'
 import { InitSigner } from '../../../connection/stargate'
 import { useClient } from '../../../hooks/useClient'
 import { useBalancesStore } from '../../../hooks/useBalanceStore'
-import { InitBalances } from '../../../connection/balances'
+import { UpdateBalances } from '../../../connection/balances'
 
 const ArrWallets = styled.div`
     width: 100%;
@@ -72,19 +72,20 @@ const WalletsTextH5 = styled.h5`
 
 export const ConnectWallets = () => {
     const [ connectWallet, setConnectWallet ] = useConnectKeplrWalletStore();
-    const [ _, setClient ] = useClient();
-    const [ wallet, setWallet ] = useWallet();
+    const [ c, setClient ] = useClient();
+    const [ w, setWallet ] = useWallet();
     const [ balances, setBalances ] = useBalancesStore();
     
     let ConnectKeplrHandler = async () => {
         let [connected, walletKeplr] = await ConnectKeplr()
+        let wallet = {init: true, wallet: walletKeplr, type: "keplr"};
         setConnectWallet({connected})
-        setWallet({init: true, wallet: walletKeplr, type: "keplr"})
+        setWallet(wallet)
         
         let client = await InitSigner();
         setClient(client)
 
-        let blns = await InitBalances(walletKeplr);
+        let blns = await UpdateBalances(wallet, balances);
         setBalances(blns)
     }
     return(

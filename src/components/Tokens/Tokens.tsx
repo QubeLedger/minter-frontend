@@ -7,9 +7,10 @@ import { useTokenTo } from '../../hooks/useTokenTo';
 import { TokenType } from '../../constants/tokens';
 import { useShowModalFrom, useShowModalTo } from '../../hooks/useShowModal';
 import { useWallet } from '../../hooks/useWallet';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Token } from '../../hooks/useTokenFrom';
 import { Coin, useBalancesStore } from '../../hooks/useBalanceStore';
+import { UpdateBalances } from '../../connection/balances';
 
 const Arrtokens = styled.div`
     width: 100%;
@@ -61,24 +62,6 @@ const TokensTextH5 = styled.h5`
     color: grey;
 `
 
-
-async function getBalanceByWallet(wallet: any, tokenInp: any): Promise<string> {
-    try {
-        if (wallet.init == true) {
-            let tokens = tokenInp.Type == TokenType.collateral ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-            let tokenInfo = tokens.find((token) => token.Base == tokenInp.Base)
-            let res = await fetch(QUBE_TESTNET_INFO.rest + `/cosmos/bank/v1beta1/balances/${wallet.wallet.bech32Address}`)
-            let balanceJson = await res.json()
-            let balanceArray = balanceJson.balances
-            let balance = balanceArray.find((bal: any) => bal.denom == String(tokenInfo?.Denom))
-            return (Number(balance.amount) / (10 ** Number(tokenInfo?.Decimals))).toFixed(3)
-        }
-    } catch (e) {
-        console.log(e)
-    }
-    return "0"
-}
-
 const getBalance = (balances: Array<Coin>, denom: string) => {
     let res: string = "0";
     balances.map((coin) => {
@@ -86,7 +69,6 @@ const getBalance = (balances: Array<Coin>, denom: string) => {
             res = coin.amt;
         }
     })
-
     return (Number(res) / 10 ** 6).toFixed(3) == "0.000" ? "0" : (Number(res) / 10 ** 6).toFixed(3)
 }
 
@@ -96,6 +78,15 @@ export const TokensCollateral = () => {
     const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
     const [balances, setBalances] = useBalancesStore();
+    const [wallet, setWallet] = useWallet();
+
+    useEffect(() => {
+        async function update() {
+            let blns = await UpdateBalances(wallet, balances);
+            setBalances(blns)
+        }
+        update();
+    }, [])
 
     const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
             <TokenFields onClick={() => {
@@ -136,6 +127,16 @@ export const TokensQAsset = () => {
     const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
     const [balances, setBalances] = useBalancesStore();
+
+    const [wallet, setWallet] = useWallet();
+
+    useEffect(() => {
+        async function update() {
+            let blns = await UpdateBalances(wallet, balances);
+            setBalances(blns)
+        }
+        update();
+    }, [])
     
     const tokens = TOKEN_INFO_QASSET.map((token) => 
         <TokenFields onClick={() => {
