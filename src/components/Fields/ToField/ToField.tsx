@@ -99,7 +99,7 @@ export const ToField = () => {
             }), 
         1500);
         return () => clearTimeout(timeoutId);
-    }, [amtIn]);
+    }, [amtIn, action, tokenInfoFrom, pair]);
 
     return(
         <ConvertTo>

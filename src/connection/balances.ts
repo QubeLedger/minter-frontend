@@ -4,7 +4,6 @@ import { Coin } from "../hooks/useBalanceStore";
 
 export async function UpdateBalances(wallet: Wallet, old_balances: Array<Coin>): Promise<Array<Coin>> {
         let balances: Array<Coin> = [];
-        console.log(wallet)
         try {
                 let res = await fetch(QUBE_TESTNET_INFO.rest + `/cosmos/bank/v1beta1/balances/${wallet.wallet.bech32Address}`)
                 let balanceJson = await res.json()
