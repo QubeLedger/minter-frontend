@@ -73,21 +73,18 @@ export const SwapButton = () => {
     const [balance, setBalance] = useState('');
     const [balances, setBalances] = useBalancesStore();
 
-    useEffect(() => {
-        async function update() {
-            let blns = await UpdateBalances(wallet, balances);
-            let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
-            let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
-            setBalance(getBalance(blns, String(tokenInfo?.Denom)))
-        }
-        update();
-    }, [])
+    async function update() {
+        let blns = await UpdateBalances(wallet, balances);
+        let tokens = tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET;
+        let tokenInfo = tokens.find((token) => token.Base == tokenFrom.base)
+        setBalance(getBalance(blns, String(tokenInfo?.Denom)))
+    }
 
     let button;
     if (wallet.init == false) {
         button = <ConvertSwapButtonNonActive onClick={() => {setWalletModalStatus({b: true})}}><ButtonSwapText>Connect wallet</ButtonSwapText> </ConvertSwapButtonNonActive>
     } else {
-
+        update();
         if (amtIn.amt == "" || amtIn.amt == "0") {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Enter {tokenFrom.base} amount</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else if (Number(amtIn.amt) > Number(balance)) {
