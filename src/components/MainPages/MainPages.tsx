@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { MainHeader } from '../Headers/MainHeader/MainHeader'
 import Container from '../index'
+import Alert from '../Alert/Alert'
 
 const App = styled.div `
     height: 100vh;
@@ -16,6 +17,7 @@ export const MainPages = () => {
     return(
         <App>
             <MainHeader></MainHeader>
+            <Alert></Alert>
             <Container></Container>
         </App>
     )
