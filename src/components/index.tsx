@@ -10,7 +10,7 @@ const MainContainer = styled.div `
     max-width: 400px;
     max-height:100%;
     background-color: #232323;
-    margin-top:150px;
+    margin-top:120px;
     margin-bottom: auto;
     border-radius:7px;
     margin-left: auto;

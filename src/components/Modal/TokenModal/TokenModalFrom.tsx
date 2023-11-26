@@ -4,17 +4,16 @@ import styled from 'styled-components';
 import { animated } from '@react-spring/web';
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import loop from '../../../assets/svg/loop.svg'
-import atom from '../../../assets/svg/AtomLogo.svg'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom';
 import { useShowModalFrom } from '../../../hooks/useShowModal';
-
+ 
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
     &[data-reach-dialog-overlay] {
         z-index: 1;
-        position: fixed;
+        position: fixed; 
         left: 0;
         top: 0;
         bottom: 0;
@@ -23,7 +22,7 @@ const StyledDialogOvelay = styled(ModalDialogOverlay) `
         display:flex;
         align-items: center;
         justify-content: center; 
-        transition: background-color 3s;
+        transition: background-color 3s; 
         background-color: rgba(0,0,0,.45);
     }
 `
