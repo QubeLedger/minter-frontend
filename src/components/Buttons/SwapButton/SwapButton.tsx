@@ -5,11 +5,12 @@ import { useTokenFrom } from '../../../hooks/useTokenFrom';
 import { swap } from '../../../functions/swap';
 import { useTokenTo } from '../../../hooks/useTokenTo';
 import { useClient } from '../../../hooks/useClient';
-import { useShowWalletModal } from '../../../hooks/useShowModal';
+import { useShowAlert, useShowWalletModal } from '../../../hooks/useShowModal';
 import { useEffect, useState } from 'react';
 import { TOKEN_INFO_COLLATERAL, TOKEN_INFO_QASSET } from '../../../constants';
 import { Coin, useBalancesStore } from '../../../hooks/useBalanceStore';
 import { UpdateBalances } from '../../../connection/balances';
+import { useAlertStore } from '../../../hooks/useAlertStore';
 
 
 const ConvertSwapButton = styled.div `
@@ -72,6 +73,8 @@ export const SwapButton = () => {
     const [walletModalStatus, setWalletModalStatus] = useShowWalletModal();
     const [balance, setBalance] = useState('');
     const [balances, setBalances] = useBalancesStore();
+    const [alertStore, setAlertStore] = useAlertStore();
+    const [showAlerts, setShowAlerts] = useShowAlert();
 
     async function update() {
         let blns = await UpdateBalances(wallet, balances);
@@ -90,7 +93,7 @@ export const SwapButton = () => {
         } else if (Number(amtIn.amt) > Number(balance)) {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Insufficient {tokenFrom.base} balance</ButtonSwapText> </ConvertSwapButtonNonActive>
         } else {
-            button = <ConvertSwapButton onClick={() => {swap(amtIn, tokenFrom, tokenTo, wallet, client)}}><ButtonSwapText>Swap</ButtonSwapText> </ConvertSwapButton>
+            button = <ConvertSwapButton onClick={() => {swap(amtIn, tokenFrom, tokenTo, wallet, client).then((alert) => {alertStore.push(alert); setShowAlerts({b: true})})}}><ButtonSwapText>Swap</ButtonSwapText> </ConvertSwapButton>
         } 
         if ((tokenFrom.base == "Select token") || (tokenTo.base == "Select token")) {
             button = <ConvertSwapButtonNonActive><ButtonSwapText>Select token</ButtonSwapText> </ConvertSwapButtonNonActive>

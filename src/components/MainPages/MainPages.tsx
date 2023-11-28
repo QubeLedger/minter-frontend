@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { MainHeader } from '../Headers/MainHeader/MainHeader'
 import Container from '../index'
 import Alert from '../Alert/Alert'
-
 const App = styled.div `
     height: 100vh;
     background: linear-gradient(#121212, #1f1f1f);
@@ -16,9 +15,9 @@ const App = styled.div `
 export const MainPages = () => {
     return(
         <App>
-            <MainHeader></MainHeader>
-            <Alert></Alert>
-            <Container></Container>
+                <MainHeader></MainHeader>
+                <Alert></Alert>
+                <Container></Container>
         </App>
     )
 }
