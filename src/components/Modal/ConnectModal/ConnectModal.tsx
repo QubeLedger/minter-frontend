@@ -1,12 +1,9 @@
-import React from 'react';
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
 import { animated } from '@react-spring/web';
-import loop from '../../../assets/svg/loop.svg'
 import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
 import { useWallet } from '../../../hooks/useWallet';
-import { disconnect } from 'process';
 import { useShowWalletModal } from '../../../hooks/useShowModal';
 
 
@@ -105,12 +102,13 @@ const StyledDialogContent = styled(ModalDialogContent) `
 
 
 
-export const ConnectExample = () => {
+export const ConnectModal = () => {
     let walletAddr: string = "";
 
     const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
     const [ wallet, setWallet ] = useWallet();
-    const [ walletModalStatus, setWalletModalStatus] = useShowWalletModal();
+    const [ walletModalStatus, setWalletModalStatus ] = useShowWalletModal();
+
     const open = () => {setWalletModalStatus({b: true})};
     const close = () => {setWalletModalStatus({b: false})};
 

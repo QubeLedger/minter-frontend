@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { ConnectExample } from '../../Modal/ConnectModal/ConnectModal'
+import { ConnectModal } from '../../Modal/ConnectModal/ConnectModal'
 import { useWallet } from '../../../hooks/useWallet'
 
 const ButtonConnect = styled.div`
@@ -21,7 +21,7 @@ export const ConnectButton = () => {
 
     return(
         <ButtonConnect>
-            <ConnectExample></ConnectExample>
+            <ConnectModal></ConnectModal>
         </ButtonConnect>
     )
 }
