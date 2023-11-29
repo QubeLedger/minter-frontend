@@ -73,8 +73,7 @@ export const ToField = () => {
     const [ amtIn, setAmtIn ] = useAmountInStore();
     const [ amtOut, setAmtOut ] = useAmountOutStore();
     const [ amt, setAmt ] = useState('');
-    const [ amtOld, setAmtOld ] = useState('');
-    const [ tokenTo, setTokenTo] = useTokenTo();
+    const [ tokenTo, setTokenTo ] = useTokenTo();
     const [ tokenFrom, setTokenFrom ] = useTokenFrom();
 
     let tokenInfoTo = (tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenTo.base);
