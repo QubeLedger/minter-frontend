@@ -4,6 +4,7 @@ import ArrowSvg from '../../../assets/svg/InfoArrrowDown.svg'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
 import { QUBE_TESTNET_INFO } from '../../../constants'
+import { useAccordionStore } from '../../../hooks/useAccordionStore';
 
 
 const ButtonInfoMain = styled.button`
@@ -48,6 +49,7 @@ export const InfoButton = () => {
     const [tokenFrom, _] = useTokenFrom();
     const [tokenTo, set] = useTokenTo();
     const [price, setPrice] = useState('');
+    const [accordion, setAccordion] = useAccordionStore()
 
     let ButtonInfoMainV = <ButtonInfoMain></ButtonInfoMain>;
 
@@ -60,9 +62,23 @@ export const InfoButton = () => {
             <InfoImg src={ArrowSvg}></InfoImg>
         </ButtonInfoMain>
     }
+
+    function openInfoBlock () {
+        if(accordion.active == false) {
+            setAccordion({
+                active: true,
+                height: '110px'
+            })
+        } else if (accordion.active == true) {
+            setAccordion({
+                active: false,
+                height: '0px'
+            })
+        }
+    }
     
     return(
-        <ButtonInfoMain>
+        <ButtonInfoMain onClick={openInfoBlock}>
             {((tokenTo.base != "Select token" && tokenTo.logo != "") && (tokenFrom.base != "Select token" && tokenFrom.logo != ""))? <ButtonInfoMain>
                 1 {tokenFrom.base} = {price} {tokenTo.base}
                 <InfoImg src={ArrowSvg}></InfoImg>

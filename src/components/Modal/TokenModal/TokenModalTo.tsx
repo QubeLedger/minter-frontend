@@ -41,7 +41,7 @@ const CloseButton = styled.button`
 `
 
 const OpenButton = styled.button`
-    max-width: 200px;
+    width: 100%;
     height:30px;
     border:none;
     outline: none;
@@ -50,6 +50,7 @@ const OpenButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 `
 
 const CloseDiv = styled.div`

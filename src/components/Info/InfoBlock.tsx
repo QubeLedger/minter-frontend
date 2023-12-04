@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { InfoButton } from '../Buttons/InfoButton/InfoButton'
-
-
+import { useAccordionStore } from '../../hooks/useAccordionStore'
 
 
 const InfoText = styled.div `
@@ -21,18 +20,45 @@ const InfoText = styled.div `
 
 
 
-const InfoHiddenBlock = styled.div`
-    max-height: 0;
+const InfoHiddenBlock = styled.div <{height: string}>`
+    max-height: ${props => props.height};
     overflow: hidden;
+    width: 330px;
+    display: flex;
+    transition: max-height .5s ease-in-out;
+`
+
+const InfoBlockNum = styled.div`
+    text-align: right;
+    margin-left: auto;
+`
+
+const InfoBlockName = styled.div`
+    margin-right: auto;
+    text-align: left;
 `
 
 
+
 export const InfoBlock = () => {
+
+    const [accordion, setAccordion] = useAccordionStore ()
+
     return(
         <InfoText>
             <InfoButton></InfoButton>
-            
-            <InfoHiddenBlock>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea, explicabo.</InfoHiddenBlock>
+            <InfoHiddenBlock height={accordion.height} >
+                <InfoBlockName>
+                    <p>Burning fee</p>
+                    <p>Minting fee</p>
+                    <p>Backing ratio</p>
+                </InfoBlockName>
+                <InfoBlockNum>
+                    <p>0%</p>
+                    <p>0%</p>
+                    <p>0%</p>
+                </InfoBlockNum>
+            </InfoHiddenBlock>
         </InfoText>
     )
 }

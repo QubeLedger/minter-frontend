@@ -42,7 +42,7 @@ const CloseButton = styled.button`
 `
 
 const OpenButton = styled.button`
-    max-width: 200px;
+    width: 100%;
     height:30px;
     border:none;
     outline: none;
