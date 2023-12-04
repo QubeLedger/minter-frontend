@@ -26,16 +26,19 @@ const InfoHiddenBlock = styled.div <{height: string}>`
     width: 330px;
     display: flex;
     transition: max-height .5s ease-in-out;
+    margin-top: 10px;
 `
 
 const InfoBlockNum = styled.div`
     text-align: right;
     margin-left: auto;
+    font-size: 15px;
 `
 
 const InfoBlockName = styled.div`
     margin-right: auto;
     text-align: left;
+    font-size: 15px;
 `
 
 
@@ -49,12 +52,12 @@ export const InfoBlock = () => {
             <InfoButton></InfoButton>
             <InfoHiddenBlock height={accordion.height} >
                 <InfoBlockName>
-                    <p>Burning fee</p>
-                    <p>Minting fee</p>
+                    <p>Slippage</p>
+                    <p>Protocol fee</p>
                     <p>Backing ratio</p>
                 </InfoBlockName>
                 <InfoBlockNum>
-                    <p>0%</p>
+                    <p>12%</p>
                     <p>0%</p>
                     <p>0%</p>
                 </InfoBlockNum>
