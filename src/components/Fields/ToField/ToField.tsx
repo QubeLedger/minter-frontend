@@ -9,12 +9,13 @@ import { TokenType } from '../../../constants/tokens'
 import { useEffect, useState } from 'react'
 import { useAmountInStore } from '../../../hooks/useAmountInStore'
 import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertTo = styled.div `
+const ConvertTo = styled.div <{containerFieldColor: string}> `
     width:85%;
     height:80px;
-    background-color: #1a1a1a;
+    background-color: ${props => props.containerFieldColor};
     border: 3px solid #333333;
     border-radius: 10px;
     margin-left:auto;
@@ -24,11 +25,11 @@ const ConvertTo = styled.div `
     align-items: center;
 `
 
-const ToFieldOutputAmount = styled.div`
+const ToFieldOutputAmount = styled.div <{containerTextColor: string}>`
     width: 100%;
     height:100%;
     background: transparent;
-    color: rgb(220,220,220);
+    color: ${props => props.containerTextColor};
     text-align: right;
     font-size: 23px;
     margin-right: 15px;
@@ -38,10 +39,10 @@ const ToFieldOutputAmount = styled.div`
     'Helvetica Neue', sans-serif;
 `
 
-const ToFieldText = styled.a`
+const ToFieldText = styled.a <{containerTextColor: string}>`
    font-weight: 500;
    font-size: 20px;
-   color: white;
+   color: ${props => props.containerTextColor};
    padding-left: 30px;
    position: absolute;
    margin-top: -125px;
@@ -75,6 +76,7 @@ export const ToField = () => {
     const [ amt, setAmt ] = useState('');
     const [ tokenTo, setTokenTo ] = useTokenTo();
     const [ tokenFrom, setTokenFrom ] = useTokenFrom();
+    const [theme, setTheme] = useToggleTheme()
 
     let tokenInfoTo = (tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenTo.base);
     let tokenInfoFrom = (tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenFrom.base);
@@ -101,11 +103,11 @@ export const ToField = () => {
     }, [amtIn, action, tokenInfoFrom, pair]);
 
     return(
-        <ConvertTo>
-            <ToFieldText>To</ToFieldText>
+        <ConvertTo containerFieldColor={theme.containerFieldColor}>
+            <ToFieldText containerTextColor={theme.containerTextColor}>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
+                <ToFieldOutputAmount containerTextColor={theme.containerTextColor} placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

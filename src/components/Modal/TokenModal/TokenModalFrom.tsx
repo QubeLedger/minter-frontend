@@ -7,6 +7,7 @@ import loop from '../../../assets/svg/loop.svg'
 import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom';
 import { useShowModalFrom } from '../../../hooks/useShowModal';
+import { useToggleTheme } from '../../../hooks/useToggleTheme';
  
 
 const ModalDialogOverlay = animated(DialogOverlay);
@@ -104,8 +105,8 @@ const PopupImg = styled.img`
     height: 25px;
     background-color: transparent;
 `
-const PopupTextH3 = styled.h3`
-    color: white;
+const PopupTextH3 = styled.h3 <{containerTextColor: string}>`
+    color: ${props => props.containerTextColor};
     font-size: 16px;
     margin-left: 10px;
     background-color: transparent;
@@ -141,6 +142,7 @@ export const TokenModalFrom = () => {
     const open = () => setShowModalFrom({b: true});
     const close = () => setShowModalFrom({b: false});
     const [tokenFrom, _] = useTokenFrom();
+    const [theme, setTheme] = useToggleTheme()
     let TokenModal;
 
     switch (tokenFrom.type) {
@@ -155,13 +157,13 @@ export const TokenModalFrom = () => {
     let TokenOpenButton;
     if((tokenFrom.base == "Select token") && tokenFrom.logo == "") {
         TokenOpenButton = <OpenButton onClick={open}>
-            <PopupTextH3>{tokenFrom.base}</PopupTextH3>
+            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenFrom.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     } else {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenFrom.logo}></PopupImg>
-            <PopupTextH3>{tokenFrom.base}</PopupTextH3>
+            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenFrom.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     }
@@ -172,7 +174,7 @@ export const TokenModalFrom = () => {
         <StyledDialogOvelay isOpen={showModalFrom.b} onDismiss={close}>
             <StyledDialogContent>
                 <CloseDiv>
-                    <ModalText>Select a token</ModalText>
+                    <ModalText >Select a token</ModalText>
                     <CloseButton onClick={close}>
                     <span aria-hidden>×</span>
                     </CloseButton>

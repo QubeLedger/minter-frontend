@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import { FormEvent, useRef, useState } from "react";
 import { useAmountInStore } from '../../hooks/useAmountInStore';
+import { useToggleTheme } from '../../hooks/useToggleTheme';
 
 
-const FromInputAmount = styled.input`
+const FromInputAmount = styled.input <{containerTextColor: string}>`
     width: 100%;
     height: 100%;
     background: transparent;
     border: none;
     text-align: right;
-    color: rgb(220,220,220);
+    color: ${props => props.containerTextColor};
     font-size: 24px;
     margin-right: 8px;
     outline-width: 0;
@@ -17,16 +18,17 @@ const FromInputAmount = styled.input`
 `
 export const InputAmount = () => {
     const [ amtIn, setAmtIn ] = useAmountInStore(); 
+    const [theme, setTheme] = useToggleTheme()
     
     const HandleInputAmpunt = (e: FormEvent<HTMLInputElement>) => {
         if (e.currentTarget.value == undefined) {
-            setAmtIn({amt: "0"});
+            setAmtIn({amt: ""});
         } else {
             setAmtIn({amt: e.currentTarget.value});
         }
     };
 
     return(
-        <FromInputAmount placeholder="0" onChange={HandleInputAmpunt} value={amtIn.amt}></FromInputAmount>
+        <FromInputAmount containerTextColor={theme.containerTextColor} placeholder="0" onChange={HandleInputAmpunt} value={amtIn.amt}></FromInputAmount>
     )
 }

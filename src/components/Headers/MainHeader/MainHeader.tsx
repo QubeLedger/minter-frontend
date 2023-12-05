@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { ConnectButton } from '../../Buttons/ConnectButton/ConnectButton'
 import Qubelogo from '../../../assets/svg/QubeLogo.svg'
-import { ToggleTheme } from './ToggleTheme'
+import { ChengeTheme } from '../../Buttons/ChangeTheme/ChangeTheme'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
-const Header = styled.div `
+const Header = styled.div <{headerColor: string}> `
     height: 80px;
     width: 100%;
-    background-color: rgb(32,32,32);
+    background-color: ${props => props.headerColor};
     display:flex;
     align-items:center;
 `
@@ -25,11 +26,14 @@ const HeaderImage = styled.img`
 
 
 export const MainHeader = () => {
+
+    const [theme, setTheme] = useToggleTheme()
+    
     return(
-    <Header>
+    <Header headerColor={theme.headerColor}>
         <HeaderImage src={Qubelogo}></HeaderImage>
         <ConnectButton></ConnectButton>
-        <ToggleTheme></ToggleTheme>
+        <ChengeTheme></ChengeTheme>
     </Header>
     )
 }

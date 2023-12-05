@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { InfoButton } from '../Buttons/InfoButton/InfoButton'
 import { useAccordionStore } from '../../hooks/useAccordionStore'
+import { useToggleTheme } from '../../hooks/useToggleTheme'
 
 
 const InfoText = styled.div `
@@ -29,16 +30,18 @@ const InfoHiddenBlock = styled.div <{height: string}>`
     margin-top: 10px;
 `
 
-const InfoBlockNum = styled.div`
+const InfoBlockNum = styled.div <{containerTextColor: string}>`
     text-align: right;
     margin-left: auto;
     font-size: 15px;
+    color: ${props => props.containerTextColor};
 `
 
-const InfoBlockName = styled.div`
+const InfoBlockName = styled.div <{containerTextColor: string}>`
     margin-right: auto;
     text-align: left;
     font-size: 15px;
+    color: ${props => props.containerTextColor}; 
 `
 
 
@@ -46,17 +49,18 @@ const InfoBlockName = styled.div`
 export const InfoBlock = () => {
 
     const [accordion, setAccordion] = useAccordionStore ()
+    const [theme, setTheme] = useToggleTheme()
 
     return(
         <InfoText>
             <InfoButton></InfoButton>
             <InfoHiddenBlock height={accordion.height} >
-                <InfoBlockName>
+                <InfoBlockName containerTextColor={theme.containerTextColor}>
                     <p>Slippage</p>
                     <p>Protocol fee</p>
                     <p>Backing ratio</p>
                 </InfoBlockName>
-                <InfoBlockNum>
+                <InfoBlockNum containerTextColor={theme.containerTextColor}>
                     <p>12%</p>
                     <p>0%</p>
                     <p>0%</p>

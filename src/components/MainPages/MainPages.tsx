@@ -2,9 +2,13 @@ import styled from 'styled-components'
 import { MainHeader } from '../Headers/MainHeader/MainHeader'
 import Container from '../index'
 import Alert from '../Alert/Alert'
-const App = styled.div `
+import { useToggleTheme } from '../../hooks/useToggleTheme'
+
+
+
+const App = styled.div <{backgroundColor: string}> `
     height: 100vh;
-    background: linear-gradient(#121212, #1f1f1f);
+    background: ${props => props.backgroundColor};
     overflow:hidden;
     display: flex;
     flex-direction: column;
@@ -13,8 +17,11 @@ const App = styled.div `
 
 
 export const MainPages = () => {
+
+    const [theme, setTheme] = useToggleTheme()
+
     return(
-        <App>
+        <App backgroundColor={theme.backgroundColor}>
                 <MainHeader></MainHeader>
                 <Alert></Alert>
                 <Container></Container>

@@ -5,11 +5,12 @@ import { ToField } from './Fields/ToField/ToField'
 import { SwapButton } from './Buttons/SwapButton/SwapButton'
 import { TokenChange } from './Buttons/TokenChange/TokenChange'
 import { InfoBlock } from './Info/InfoBlock'
+import { useToggleTheme } from '../hooks/useToggleTheme'
 
-const MainContainer = styled.div `
+const MainContainer = styled.div <{containerColor: string}> `
     max-width: 400px;
     max-height:100%;
-    background-color: #232323;
+    background-color: ${props => props.containerColor};
     margin-top:120px;
     margin-bottom: auto;
     border-radius:7px;
@@ -30,8 +31,11 @@ const MainContainer = styled.div `
 
 
 const Container = () => {
+
+    const [theme, setTheme] = useToggleTheme()
+
     return(
-        <MainContainer>
+        <MainContainer containerColor={theme.containerColor}>
             <ContentHeader></ContentHeader>    
             <FromField></FromField>
             <TokenChange></TokenChange>

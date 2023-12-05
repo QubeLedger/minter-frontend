@@ -7,6 +7,7 @@ import arrow from '../../../assets/svg/InfoArrrowDown.svg'
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import { useTokenTo } from '../../../hooks/useTokenTo';
 import { useShowModalTo } from '../../../hooks/useShowModal';
+import { useToggleTheme } from '../../../hooks/useToggleTheme';
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -104,8 +105,8 @@ const PopupImg = styled.img`
     height: 25px;
     background-color: transparent;
 `
-const PopupTextH3 = styled.h3`
-    color: white;
+const PopupTextH3 = styled.h3 <{containerTextColor: string}>`
+    color: ${props => props.containerTextColor};
     font-size: 16px;
     margin-left: 10px;
     background-color: transparent;
@@ -139,6 +140,7 @@ export const TokenModalTo = () => {
     const open = () => setShowModalTo({b: true});
     const close = () => setShowModalTo({b: false});
     const [tokenTo, _] = useTokenTo();
+    const [theme, setTheme] = useToggleTheme()
 
     let TokenModal;
     let TokenOpenButton;
@@ -154,13 +156,13 @@ export const TokenModalTo = () => {
 
     if((tokenTo.base == "Select token") && tokenTo.logo == "") {
         TokenOpenButton = <OpenButton onClick={open}>
-            <PopupTextH3>{tokenTo.base}</PopupTextH3>
+            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenTo.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     } else {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenTo.logo}></PopupImg>
-            <PopupTextH3>{tokenTo.base}</PopupTextH3>
+            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenTo.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     }
