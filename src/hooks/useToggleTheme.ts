@@ -7,6 +7,8 @@ interface Accordion {
   containerColor: string;
   containerTextColor: string;
   containerFieldColor: string;
+  contrainerBorder: string;
+  contrainerFieldsBorder: string;
 }
 
 const defaultState: Accordion = { 
@@ -15,7 +17,9 @@ const defaultState: Accordion = {
     headerColor: 'rgb(32,32,32)' ,
     containerColor: '#232323',
     containerTextColor: 'white',
-    containerFieldColor: '#1a1a1a'
+    containerFieldColor: '#1a1a1a',
+    contrainerBorder: '2px solid black',
+    contrainerFieldsBorder: '3px solid #333'
 };
 
 export const [useToggleTheme] = createStore(defaultState);

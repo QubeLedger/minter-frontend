@@ -12,11 +12,11 @@ import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
 import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertTo = styled.div <{containerFieldColor: string}> `
+const ConvertTo = styled.div <{containerFieldColor: string, contrainerFieldsBorder: string}> `
     width:85%;
     height:80px;
     background-color: ${props => props.containerFieldColor};
-    border: 3px solid #333333;
+    border: ${props => props.contrainerFieldsBorder};
     border-radius: 10px;
     margin-left:auto;
     margin-right:auto;
@@ -103,7 +103,7 @@ export const ToField = () => {
     }, [amtIn, action, tokenInfoFrom, pair]);
 
     return(
-        <ConvertTo containerFieldColor={theme.containerFieldColor}>
+        <ConvertTo containerFieldColor={theme.containerFieldColor} contrainerFieldsBorder={theme.contrainerFieldsBorder}>
             <ToFieldText containerTextColor={theme.containerTextColor}>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>

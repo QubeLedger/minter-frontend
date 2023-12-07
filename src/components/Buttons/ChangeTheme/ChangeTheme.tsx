@@ -30,11 +30,13 @@ export const ChengeTheme = () => {
         if(theme.active == false) {
             setTheme({
                 active: true,
-                backgroundColor: 'linear-gradient(174deg, rgba(255,255,255,1) 0%, rgba(235,251,255,1) 50%, rgba(233,252,255,1) 100%);',
-                headerColor: 'rgb(209, 248, 255,.2)',
-                containerColor: 'white',
+                backgroundColor: '#ecebeb',
+                headerColor: 'transparent',
+                containerColor: '#ffffff',
                 containerTextColor: '#333',
-                containerFieldColor: 'rgba(245, 245, 245)'
+                containerFieldColor: '#ecebeb',
+                contrainerBorder: '2px solid #dbdbdb',
+                contrainerFieldsBorder: '2px solid #dbdbdb'
             })
         } else if (theme.active == true) {
             setTheme({
@@ -43,7 +45,9 @@ export const ChengeTheme = () => {
                 headerColor: 'rgb(32,32,32)',
                 containerColor: '#232323',
                 containerTextColor: 'white',
-                containerFieldColor: '#1a1a1a'
+                containerFieldColor: '#1a1a1a',
+                contrainerBorder: '2px solid black',
+                contrainerFieldsBorder: '3px solid #333'
             })
         }
     }

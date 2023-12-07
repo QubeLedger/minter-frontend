@@ -5,11 +5,11 @@ import { BalanceFrom } from '../../Balance/BalanceFrom'
 import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertFrom = styled.div <{containerFieldColor: string}> `
+const ConvertFrom = styled.div <{containerFieldColor: string, contrainerFieldsBorder: string}> `
     width:85%;
     height:80px;
     background-color: ${props => props.containerFieldColor};
-    border: 3px solid #333333;
+    border: ${props => props.contrainerFieldsBorder};
     border-radius: 10px;
     margin-top: 35px;
     margin-left:auto;
@@ -41,7 +41,7 @@ export const FromField = () => {
     const [theme, setTheme] = useToggleTheme()
 
     return(
-            <ConvertFrom containerFieldColor={theme.containerFieldColor}>
+            <ConvertFrom containerFieldColor={theme.containerFieldColor} contrainerFieldsBorder={theme.contrainerFieldsBorder}>
                 <FromFieldText containerTextColor={theme.containerTextColor}>From</FromFieldText>
                 <Down>
                     <PopupSelectFromToken></PopupSelectFromToken>
