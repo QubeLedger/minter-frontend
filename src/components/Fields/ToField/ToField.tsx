@@ -12,11 +12,11 @@ import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
 import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertTo = styled.div <{containerFieldColor: string, contrainerFieldsBorder: string}> `
+const ConvertTo = styled.div <{FieldColor: string, FieldsBorder: string}> `
     width:85%;
     height:80px;
-    background-color: ${props => props.containerFieldColor};
-    border: ${props => props.contrainerFieldsBorder};
+    background-color: ${props => props.FieldColor};
+    border: ${props => props.FieldsBorder};
     border-radius: 10px;
     margin-left:auto;
     margin-right:auto;
@@ -25,11 +25,11 @@ const ConvertTo = styled.div <{containerFieldColor: string, contrainerFieldsBord
     align-items: center;
 `
 
-const ToFieldOutputAmount = styled.div <{containerTextColor: string}>`
+const ToFieldOutputAmount = styled.div <{TextColor: string}>`
     width: 100%;
     height:100%;
     background: transparent;
-    color: ${props => props.containerTextColor};
+    color: ${props => props.TextColor};
     text-align: right;
     font-size: 23px;
     margin-right: 15px;
@@ -39,10 +39,10 @@ const ToFieldOutputAmount = styled.div <{containerTextColor: string}>`
     'Helvetica Neue', sans-serif;
 `
 
-const ToFieldText = styled.a <{containerTextColor: string}>`
+const ToFieldText = styled.a <{TextColor: string}>`
    font-weight: 500;
    font-size: 20px;
-   color: ${props => props.containerTextColor};
+   color: ${props => props.TextColor};
    padding-left: 30px;
    position: absolute;
    margin-top: -125px;
@@ -103,11 +103,11 @@ export const ToField = () => {
     }, [amtIn, action, tokenInfoFrom, pair]);
 
     return(
-        <ConvertTo containerFieldColor={theme.containerFieldColor} contrainerFieldsBorder={theme.contrainerFieldsBorder}>
-            <ToFieldText containerTextColor={theme.containerTextColor}>To</ToFieldText>
+        <ConvertTo FieldColor={theme.FieldColor} FieldsBorder={theme.FieldsBorder}>
+            <ToFieldText TextColor={theme.TextColor}>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount containerTextColor={theme.containerTextColor} placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
+                <ToFieldOutputAmount TextColor={theme.TextColor} placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

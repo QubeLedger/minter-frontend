@@ -13,12 +13,12 @@ import { Coin, useBalancesStore } from '../../hooks/useBalanceStore';
 import { UpdateBalances } from '../../connection/balances';
 import { useToggleTheme } from '../../hooks/useToggleTheme';
 
-const Arrtokens = styled.div <{containerTextColor: string}>`
+const Arrtokens = styled.div <{containerTextColor: string, Border: string}>`
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    border-top: 2px solid black;
+    border-top: ${props => props.Border};
     color: ${props => props.containerTextColor};
 `
 
@@ -90,7 +90,7 @@ export const TokensCollateral = () => {
     }, [])
 
     const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
-            <TokenFields containerTextColor={theme.containerTextColor} onClick={() => {
+            <TokenFields containerTextColor={theme.TextColor} onClick={() => {
                 if(showModalFrom.b == true) {
                     setTokenFrom({
                         logo: token.Logo,
@@ -116,7 +116,7 @@ export const TokensCollateral = () => {
         </TokenFields>       
     )
     return(
-        <Arrtokens containerTextColor={theme.containerTextColor}>
+        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
             {tokens}
         </Arrtokens>
     )
@@ -140,7 +140,7 @@ export const TokensQAsset = () => {
     }, [])
     
     const tokens = TOKEN_INFO_QASSET.map((token) => 
-        <TokenFields containerTextColor={theme.containerTextColor} onClick={() => {
+        <TokenFields containerTextColor={theme.TextColor} onClick={() => {
             if(showModalFrom.b == true) {
                 setTokenFrom({
                     logo: token.Logo,
@@ -166,7 +166,7 @@ export const TokensQAsset = () => {
         </TokenFields>       
     )
     return(
-        <Arrtokens containerTextColor={theme.containerTextColor}>
+        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
             {tokens}
         </Arrtokens>
     )

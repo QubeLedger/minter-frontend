@@ -33,10 +33,13 @@ export const ChengeTheme = () => {
                 backgroundColor: '#ecebeb',
                 headerColor: 'transparent',
                 containerColor: '#ffffff',
-                containerTextColor: '#333',
-                containerFieldColor: '#ecebeb',
-                contrainerBorder: '2px solid #dbdbdb',
-                contrainerFieldsBorder: '2px solid #dbdbdb'
+                TextColor: '#333',
+                FieldColor: '#ecebeb',
+                Border: '2px solid #dbdbdb',
+                FieldsBorder: '1px solid #dbdbdb',
+                modalBgColor: '#ffffff',
+                inputBgColor: '#ecebeb',
+                connectBtnColor: '#ecebeb'
             })
         } else if (theme.active == true) {
             setTheme({
@@ -44,10 +47,13 @@ export const ChengeTheme = () => {
                 backgroundColor: 'linear-gradient(#121212, #1f1f1f)',
                 headerColor: 'rgb(32,32,32)',
                 containerColor: '#232323',
-                containerTextColor: 'white',
-                containerFieldColor: '#1a1a1a',
-                contrainerBorder: '2px solid black',
-                contrainerFieldsBorder: '3px solid #333'
+                TextColor: 'white',
+                FieldColor: '#1a1a1a',
+                Border: '2px solid black',
+                FieldsBorder: '3px solid #333',
+                modalBgColor: 'rgb(35,35,35)',
+                inputBgColor: '#323232',
+                connectBtnColor: 'rgb(50,50,50)'
             })
         }
     }

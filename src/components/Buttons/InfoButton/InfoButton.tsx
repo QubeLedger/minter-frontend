@@ -8,7 +8,7 @@ import { useAccordionStore } from '../../../hooks/useAccordionStore';
 import { useToggleTheme } from '../../../hooks/useToggleTheme';
 
 
-const ButtonInfoMain = styled.button <{containerTextColor: string}>`
+const ButtonInfoMain = styled.button <{TextColor: string}>`
     width: 100%;
     cursor: pointer;
     font-family: 'Metropolis', sans-serif;
@@ -16,7 +16,7 @@ const ButtonInfoMain = styled.button <{containerTextColor: string}>`
     background: transparent;
     font-weight: 600;
     font-size: 17px;
-    color: ${props => props.containerTextColor};
+    color: ${props => props.TextColor};
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -53,13 +53,13 @@ export const InfoButton = () => {
     const [accordion, setAccordion] = useAccordionStore()
     const [theme, setTheme] = useToggleTheme()
 
-    let ButtonInfoMainV = <ButtonInfoMain containerTextColor={theme.containerTextColor}></ButtonInfoMain>;
+    let ButtonInfoMainV = <ButtonInfoMain TextColor={theme.TextColor}></ButtonInfoMain>;
 
     if(tokenTo.base != "Select token" && tokenTo.logo != "") {
         try {
             getPrice(tokenFrom, price, tokenTo).then(price => setPrice(price))
         } catch {}
-        ButtonInfoMainV = <ButtonInfoMain containerTextColor={theme.containerTextColor}>
+        ButtonInfoMainV = <ButtonInfoMain TextColor={theme.TextColor}>
             1 {tokenFrom.base} = {price} {tokenTo.base}
             <InfoImg src={ArrowSvg}></InfoImg>
         </ButtonInfoMain>
@@ -80,8 +80,8 @@ export const InfoButton = () => {
     }
     
     return(
-        <ButtonInfoMain containerTextColor={theme.containerTextColor} onClick={openInfoBlock}>
-            {((tokenTo.base != "Select token" && tokenTo.logo != "") && (tokenFrom.base != "Select token" && tokenFrom.logo != ""))? <ButtonInfoMain containerTextColor={theme.containerTextColor}>
+        <ButtonInfoMain TextColor={theme.TextColor} onClick={openInfoBlock}>
+            {((tokenTo.base != "Select token" && tokenTo.logo != "") && (tokenFrom.base != "Select token" && tokenFrom.logo != ""))? <ButtonInfoMain TextColor={theme.TextColor}>
                 1 {tokenFrom.base} = {price} {tokenTo.base}
                 <InfoImg src={ArrowSvg}></InfoImg>
             </ButtonInfoMain> : <></>}

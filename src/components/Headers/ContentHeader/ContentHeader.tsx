@@ -11,10 +11,10 @@ const ContainerHeader = styled.div `
     }
 `
 
-const ContainerHeaderText = styled.h2 <{containerTextColor: string}> `
+const ContainerHeaderText = styled.h2 <{TextColor: string}> `
     font-size: 25px;
     font-family: 'Metropolis', sans-serif;
-    color: ${props => props.containerTextColor};
+    color: ${props => props.TextColor};
 `
 
 export const ContentHeader = () => {
@@ -23,7 +23,7 @@ export const ContentHeader = () => {
     
     return(
         <ContainerHeader>
-            <ContainerHeaderText containerTextColor={theme.containerTextColor}>Convert qAssets</ContainerHeaderText>
+            <ContainerHeaderText TextColor={theme.TextColor}>Convert qAssets</ContainerHeaderText>
         </ContainerHeader>
     )
 }

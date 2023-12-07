@@ -7,7 +7,7 @@ import { TokenChange } from './Buttons/TokenChange/TokenChange'
 import { InfoBlock } from './Info/InfoBlock'
 import { useToggleTheme } from '../hooks/useToggleTheme'
 
-const MainContainer = styled.div <{containerColor: string, contrainerBorder: string}> `
+const MainContainer = styled.div <{containerColor: string, Border: string}> `
     max-width: 400px;
     max-height:100%;
     background-color: ${props => props.containerColor};
@@ -18,7 +18,7 @@ const MainContainer = styled.div <{containerColor: string, contrainerBorder: str
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    border: ${props => props.contrainerBorder};
+    border: ${props => props.Border};
     @media (max-width: 500px){
         border: none;
         max-width:100%;
@@ -35,7 +35,7 @@ const Container = () => {
     const [theme, setTheme] = useToggleTheme()
 
     return(
-        <MainContainer containerColor={theme.containerColor} contrainerBorder={theme.contrainerBorder}>
+        <MainContainer containerColor={theme.containerColor} Border={theme.Border}>
             <ContentHeader></ContentHeader>    
             <FromField></FromField>
             <TokenChange></TokenChange>

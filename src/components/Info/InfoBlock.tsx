@@ -19,8 +19,6 @@ const InfoText = styled.div `
     flex-direction: column;
 `
 
-
-
 const InfoHiddenBlock = styled.div <{height: string}>`
     max-height: ${props => props.height};
     overflow: hidden;
@@ -30,18 +28,18 @@ const InfoHiddenBlock = styled.div <{height: string}>`
     margin-top: 10px;
 `
 
-const InfoBlockNum = styled.div <{containerTextColor: string}>`
+const InfoBlockNum = styled.div <{TextColor: string}>`
     text-align: right;
     margin-left: auto;
     font-size: 15px;
-    color: ${props => props.containerTextColor};
+    color: ${props => props.TextColor};
 `
 
-const InfoBlockName = styled.div <{containerTextColor: string}>`
+const InfoBlockName = styled.div <{TextColor: string}>`
     margin-right: auto;
     text-align: left;
     font-size: 15px;
-    color: ${props => props.containerTextColor}; 
+    color: ${props => props.TextColor}; 
 `
 
 
@@ -55,12 +53,12 @@ export const InfoBlock = () => {
         <InfoText>
             <InfoButton></InfoButton>
             <InfoHiddenBlock height={accordion.height} >
-                <InfoBlockName containerTextColor={theme.containerTextColor}>
+                <InfoBlockName TextColor={theme.TextColor}>
                     <p>Slippage</p>
                     <p>Protocol fee</p>
                     <p>Backing ratio</p>
                 </InfoBlockName>
-                <InfoBlockNum containerTextColor={theme.containerTextColor}>
+                <InfoBlockNum TextColor={theme.TextColor}>
                     <p>12%</p>
                     <p>0%</p>
                     <p>0%</p>

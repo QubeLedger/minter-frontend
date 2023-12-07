@@ -8,6 +8,7 @@ import { InitSigner } from '../../../connection/stargate'
 import { useClient } from '../../../hooks/useClient'
 import { useBalancesStore } from '../../../hooks/useBalanceStore'
 import { UpdateBalances } from '../../../connection/balances'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 const ArrWallets = styled.div`
     width: 100%;
@@ -17,8 +18,8 @@ const ArrWallets = styled.div`
     margin-top: 10px;
 `
 
-const WalletFields = styled.button`
-    background-color: rgb(50,50,50);
+const WalletFields = styled.button <{connectBtnColor: string}> `
+    background-color: ${props => props.connectBtnColor};
     width: 225px;
     height: 225px;
     border: none;
@@ -43,29 +44,11 @@ const Img = styled.img`
     margin-bottom: 5px;
 `
 
-const WalletsText = styled.div`
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-`
-
-const WalletsTextH3 = styled.h3`
-    color: white;
+const WalletsTextH3 = styled.h3 <{TextColor: string}>`
+    color: ${props => props.TextColor};
     font-size: 18px;
     position: absolute;
-    margin-top: 15em;
-`
-
-const WalletsTextH2Number = styled.h2` 
-    color: white;
-    margin-left: auto;
-    margin-right: 26px;
-`
-
-const WalletsTextH5 = styled.h5`
-   margin-top: -10px;
-    color: grey;
+    margin-top: 16em;
 `
 
 
@@ -75,6 +58,7 @@ export const ConnectWallets = () => {
     const [ c, setClient ] = useClient();
     const [ w, setWallet ] = useWallet();
     const [ balances, setBalances ] = useBalancesStore();
+    const [theme, setTheme] = useToggleTheme()
     
     let ConnectKeplrHandler = async () => {
         let [connected, walletKeplr] = await ConnectKeplr()
@@ -90,13 +74,13 @@ export const ConnectWallets = () => {
     }
     return(
         <ArrWallets>
-            <WalletFields onClick={ConnectKeplrHandler}>
+            <WalletFields connectBtnColor={theme.connectBtnColor} onClick={ConnectKeplrHandler}>
                 <Img src={keplr}></Img>
-                <WalletsTextH3>Keplr</WalletsTextH3>
+                <WalletsTextH3 TextColor={theme.TextColor}>Keplr</WalletsTextH3>
             </WalletFields>
-            <WalletFields>
+            <WalletFields connectBtnColor={theme.connectBtnColor}>
                 <Img src={leap}></Img>
-                <WalletsTextH3>Leap</WalletsTextH3>
+                <WalletsTextH3 TextColor={theme.TextColor}>Leap</WalletsTextH3>
             </WalletFields>
         </ArrWallets>
     )

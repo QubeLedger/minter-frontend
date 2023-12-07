@@ -5,11 +5,11 @@ import { BalanceFrom } from '../../Balance/BalanceFrom'
 import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertFrom = styled.div <{containerFieldColor: string, contrainerFieldsBorder: string}> `
+const ConvertFrom = styled.div <{FieldColor: string, FieldsBorder: string}> `
     width:85%;
     height:80px;
-    background-color: ${props => props.containerFieldColor};
-    border: ${props => props.contrainerFieldsBorder};
+    background-color: ${props => props.FieldColor};
+    border: ${props => props.FieldsBorder};
     border-radius: 10px;
     margin-top: 35px;
     margin-left:auto;
@@ -19,10 +19,10 @@ const ConvertFrom = styled.div <{containerFieldColor: string, contrainerFieldsBo
     align-items: center;
 `
 
-const FromFieldText = styled.a <{containerTextColor: string}>`
+const FromFieldText = styled.a <{TextColor: string}>`
    font-weight: 500;
    font-size: 20px;
-   color: ${props => props.containerTextColor};
+   color: ${props => props.TextColor};
    padding-left: 30px;
    position: absolute;
    margin-top: -125px;
@@ -41,8 +41,8 @@ export const FromField = () => {
     const [theme, setTheme] = useToggleTheme()
 
     return(
-            <ConvertFrom containerFieldColor={theme.containerFieldColor} contrainerFieldsBorder={theme.contrainerFieldsBorder}>
-                <FromFieldText containerTextColor={theme.containerTextColor}>From</FromFieldText>
+            <ConvertFrom FieldColor={theme.FieldColor} FieldsBorder={theme.FieldsBorder}>
+                <FromFieldText TextColor={theme.TextColor}>From</FromFieldText>
                 <Down>
                     <PopupSelectFromToken></PopupSelectFromToken>
                     <InputAmount></InputAmount>

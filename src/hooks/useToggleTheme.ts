@@ -5,10 +5,13 @@ interface Accordion {
   backgroundColor: string;
   headerColor: string;
   containerColor: string;
-  containerTextColor: string;
-  containerFieldColor: string;
-  contrainerBorder: string;
-  contrainerFieldsBorder: string;
+  TextColor: string;
+  FieldColor: string;
+  Border: string;
+  FieldsBorder: string;
+  modalBgColor: string;
+  inputBgColor: string;
+  connectBtnColor: string;
 }
 
 const defaultState: Accordion = { 
@@ -16,10 +19,13 @@ const defaultState: Accordion = {
     backgroundColor: 'linear-gradient(#121212, #1f1f1f)', 
     headerColor: 'rgb(32,32,32)' ,
     containerColor: '#232323',
-    containerTextColor: 'white',
-    containerFieldColor: '#1a1a1a',
-    contrainerBorder: '2px solid black',
-    contrainerFieldsBorder: '3px solid #333'
+    TextColor: 'white',
+    FieldColor: '#1a1a1a',
+    Border: '2px solid black',
+    FieldsBorder: '3px solid #333',
+    modalBgColor: 'rgb(35,35,35)',
+    inputBgColor: '#323232',
+    connectBtnColor: 'rgb(50,50,50)'
 };
 
 export const [useToggleTheme] = createStore(defaultState);

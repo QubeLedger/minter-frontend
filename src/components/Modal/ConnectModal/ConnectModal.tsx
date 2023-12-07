@@ -5,6 +5,7 @@ import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
 import { useWallet } from '../../../hooks/useWallet';
 import { useShowWalletModal } from '../../../hooks/useShowModal';
+import { useToggleTheme } from '../../../hooks/useToggleTheme';
 
 
 const ModalDialogOverlay = animated(DialogOverlay);
@@ -25,14 +26,14 @@ const StyledDialogOvelay = styled(ModalDialogOverlay) `
     }
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled.button <{TextColor: string}>`
     width: 20px;
     font-size: 35px;
     margin-top: 10px;
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: white;
+    color: ${props => props.TextColor};
     margin-left: 90%;
     outline: none;
     
@@ -85,15 +86,15 @@ const WalletsTextH3 = styled.h3`
 
 
 const ModalDialogContent = animated(DialogContent);
-const StyledDialogContent = styled(ModalDialogContent) `
+const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, Border: string}> `
     &[data-reach-dialog-content] {
-        background-color: rgb(35,35,35);
+        background-color: ${props => props.modalBgColor};
         width: 535px;
         height: 350px;
         display: flex;
         flex-direction: column;
         border-radius: 20px;
-        border: 2px solid black;
+        border: ${props => props.Border};
         margin-top: -10px;
         position: relative;
         outline: none;
@@ -108,6 +109,7 @@ export const ConnectModal = () => {
     const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
     const [ wallet, setWallet ] = useWallet();
     const [ walletModalStatus, setWalletModalStatus ] = useShowWalletModal();
+    const [theme, setTheme] = useToggleTheme()
 
     const open = () => {setWalletModalStatus({b: true})};
     const close = () => {setWalletModalStatus({b: false})};
@@ -132,9 +134,9 @@ export const ConnectModal = () => {
       <div>
         <OpenButton onClick={wallet.init == false? open : disconnect}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
         <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
-            <StyledDialogContent>
+            <StyledDialogContent  modalBgColor={theme.modalBgColor} Border={theme.Border}>
                 <CloseDiv>              
-                    <CloseButton onClick={close}>
+                    <CloseButton TextColor={theme.TextColor} onClick={close}>
                     <span aria-hidden>×</span>
                     </CloseButton>
                 </CloseDiv>

@@ -4,13 +4,13 @@ import { useAmountInStore } from '../../hooks/useAmountInStore';
 import { useToggleTheme } from '../../hooks/useToggleTheme';
 
 
-const FromInputAmount = styled.input <{containerTextColor: string}>`
+const FromInputAmount = styled.input <{TextColor: string}>`
     width: 100%;
     height: 100%;
     background: transparent;
     border: none;
     text-align: right;
-    color: ${props => props.containerTextColor};
+    color: ${props => props.TextColor};
     font-size: 24px;
     margin-right: 8px;
     outline-width: 0;
@@ -29,6 +29,6 @@ export const InputAmount = () => {
     };
 
     return(
-        <FromInputAmount containerTextColor={theme.containerTextColor} placeholder="0" onChange={HandleInputAmpunt} value={amtIn.amt}></FromInputAmount>
+        <FromInputAmount TextColor={theme.TextColor} placeholder="0" onChange={HandleInputAmpunt} value={amtIn.amt}></FromInputAmount>
     )
 }

@@ -65,7 +65,7 @@ const CloseDiv = styled.div`
 const SearchToken = styled.input`
     width: 300px;
     height: 30px;
-    background-color: #323232;
+    background-color: transparent;
     border: none;
     border-radius: 5px;
     margin-left: 5px;
@@ -82,22 +82,23 @@ const LoopImg = styled.img`
     margin-left: 15px;
 `
 
-const SearchDiv = styled.div`
+const SearchDiv = styled.div <{inputBgColor: string, Border: string}>`
     height: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #323232;
+    background-color: ${props => props.inputBgColor};
     border-radius: 5px;
     margin-left: 26px;
     margin-right: 26px;
     margin-bottom: 10px;
-    border: 2px solid black;
+    border: ${props => props.Border};
 `
 
-const ModalText = styled.h4`
+const ModalText = styled.h4 <{TextColor: string}>`
     margin-left: 26px;
     font-size: 20px;
+    color: ${props => props.TextColor};
 `
 
 const PopupImg = styled.img`
@@ -105,8 +106,8 @@ const PopupImg = styled.img`
     height: 25px;
     background-color: transparent;
 `
-const PopupTextH3 = styled.h3 <{containerTextColor: string}>`
-    color: ${props => props.containerTextColor};
+const PopupTextH3 = styled.h3 <{TextColor: string}>`
+    color: ${props => props.TextColor};
     font-size: 16px;
     margin-left: 10px;
     background-color: transparent;
@@ -120,16 +121,16 @@ const ModalArrowImg = styled.img `
 
 
 const ModalDialogContent = animated(DialogContent);
-const StyledDialogContent = styled(ModalDialogContent) `
+const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, Border: string}> `
     &[data-reach-dialog-content] {
-        background-color: rgb(35,35,35);
+        background-color: ${props => props.modalBgColor};
         width: 370px;
         height: 600px;
         display: flex;
         flex-direction: column;
         padding-bottom: 20px;
         border-radius: 10px;
-        border: 2px solid black;
+        border: ${props => props.Border};
         margin-top: 70px;
     }
 `
@@ -156,13 +157,13 @@ export const TokenModalTo = () => {
 
     if((tokenTo.base == "Select token") && tokenTo.logo == "") {
         TokenOpenButton = <OpenButton onClick={open}>
-            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenTo.base}</PopupTextH3>
+            <PopupTextH3 TextColor={theme.TextColor}>{tokenTo.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     } else {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenTo.logo}></PopupImg>
-            <PopupTextH3 containerTextColor={theme.containerTextColor}>{tokenTo.base}</PopupTextH3>
+            <PopupTextH3 TextColor={theme.TextColor}>{tokenTo.base}</PopupTextH3>
             <ModalArrowImg src={arrow}></ModalArrowImg>
         </OpenButton>
     }
@@ -170,14 +171,14 @@ export const TokenModalTo = () => {
       <div>
         {TokenOpenButton}
         <StyledDialogOvelay isOpen={showModalTo.b} onDismiss={close}>
-            <StyledDialogContent>
+            <StyledDialogContent modalBgColor={theme.modalBgColor} Border={theme.Border}>
                 <CloseDiv>
-                    <ModalText>Select a token</ModalText>
+                    <ModalText TextColor={theme.TextColor}>Select a token</ModalText>
                     <CloseButton onClick={close}>
                     <span aria-hidden>×</span>
                     </CloseButton>
                 </CloseDiv>
-                <SearchDiv>
+                <SearchDiv inputBgColor={theme.inputBgColor} Border={theme.Border}>
                     <LoopImg src={loop}></LoopImg>
                     <SearchToken placeholder='Search'></SearchToken>
                 </SearchDiv>
