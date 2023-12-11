@@ -66,6 +66,9 @@ const ContentDiv = styled.div`
     flex-direction: row;
     align-items: center;
     height: 100%;
+    @media (max-width: 500px) {
+        flex-direction: column;
+        }
 `
 
 const WalletList = styled.div`
@@ -98,6 +101,10 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
         margin-top: -10px;
         position: relative;
         outline: none;
+        @media (max-width: 500px) {
+            width: 335px;
+            height: 600px;
+        }
     }
 `
 

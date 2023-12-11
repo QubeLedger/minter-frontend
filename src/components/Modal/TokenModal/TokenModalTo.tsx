@@ -105,6 +105,7 @@ const PopupImg = styled.img`
     width: 25px;
     height: 25px;
     background-color: transparent;
+    margin-left: -28px;
 `
 const PopupTextH3 = styled.h3 <{TextColor: string}>`
     color: ${props => props.TextColor};
@@ -132,6 +133,7 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
         border-radius: 10px;
         border: ${props => props.Border};
         margin-top: 70px;
+        
     }
 `
 

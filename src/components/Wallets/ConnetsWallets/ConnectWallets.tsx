@@ -16,6 +16,10 @@ const ArrWallets = styled.div`
     flex-direction: row;
     justify-content: center;
     margin-top: 10px;
+    align-items: center;
+    @media (max-width: 500px) {
+        flex-direction: column;
+    }
 `
 
 const WalletFields = styled.button <{connectBtnColor: string}> `
@@ -35,6 +39,7 @@ const WalletFields = styled.button <{connectBtnColor: string}> `
     outline:none;
     margin-top: 10px;
     justify-content: center;
+    
 `
 
 const Img = styled.img`
