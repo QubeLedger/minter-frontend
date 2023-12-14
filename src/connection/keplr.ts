@@ -6,6 +6,13 @@ export async function ConnectKeplr(): Promise<[boolean, any, AlertType]> {
         try {
                 if (!(window as any).getOfflineSigner || !(window as any).keplr) {
                         console.log("Please install keplr extension"); // ERROR
+                        let alert: AlertType = {
+                                Type: 'warning',
+                                Text: 'An unexpected error has occurred. Please try again.',
+                                Color: 'warning',
+                                Tx: ""
+                        }
+                        return [false, null, alert]
                 } else {
                         if ((window as any).keplr.experimentalSuggestChain) {
                                 try {
@@ -44,11 +51,4 @@ export async function ConnectKeplr(): Promise<[boolean, any, AlertType]> {
                 }
                 return [false, null, alert]
         }
-        let alert: AlertType = {
-                Type: 'warning',
-                Text: 'An unexpected error has occurred. Please try again.',
-                Color: 'warning',
-                Tx: ""
-        }
-        return [false, null, alert]
 }
