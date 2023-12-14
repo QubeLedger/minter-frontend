@@ -87,16 +87,17 @@ export const ConnectWallets = () => {
             alertStore.push(alert) 
             setShowAlerts({b: true})
         }
+        if (connected == true) {
+            let wallet = {init: true, wallet: walletKeplr, type: "keplr"};
+            setConnectWallet({connected})
+            setWallet(wallet)
+            
+            let client = await InitSigner();
+            setClient(client)
 
-        let wallet = {init: connected, wallet: walletKeplr, type: "keplr"};
-        setConnectWallet({connected})
-        setWallet(wallet)
-        
-        let client = await InitSigner();
-        setClient(client)
-
-        let blns = await UpdateBalances(wallet, balances);
-        setBalances(blns)
+            let blns = await UpdateBalances(wallet, balances);
+            setBalances(blns)
+        }
     }
     return(
         <ArrWallets>
