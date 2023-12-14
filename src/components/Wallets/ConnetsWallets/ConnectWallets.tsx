@@ -88,7 +88,7 @@ export const ConnectWallets = () => {
             setShowAlerts({b: true})
         }
 
-        let wallet = {init: true, wallet: walletKeplr, type: "keplr"};
+        let wallet = {init: connected, wallet: walletKeplr, type: "keplr"};
         setConnectWallet({connected})
         setWallet(wallet)
         
