@@ -1,6 +1,6 @@
 import { createStore } from './store';
 
-interface Accordion {
+interface Theme {
   active: boolean;
   backgroundColor: string;
   headerColor: string;
@@ -14,7 +14,7 @@ interface Accordion {
   connectBtnColor: string;
 }
 
-const defaultState: Accordion = { 
+const defaultState: Theme = { 
     active: false, 
     backgroundColor: 'linear-gradient(#121212, #1f1f1f)', 
     headerColor: 'rgb(32,32,32)' ,
@@ -25,7 +25,7 @@ const defaultState: Accordion = {
     FieldsBorder: '3px solid #333',
     modalBgColor: 'rgb(35,35,35)',
     inputBgColor: '#323232',
-    connectBtnColor: 'rgb(50,50,50)'
+    connectBtnColor: 'rgb(50,50,50)',
 };
 
 export const [useToggleTheme] = createStore(defaultState);

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { useState } from "react";
 import ArrowSvg from '../../../assets/svg/InfoArrrowDown.svg'
+import ArrowSvgBlack from '../../../assets/svg/InfoArrowDownBlack.svg'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
 import { QUBE_TESTNET_INFO } from '../../../constants'
@@ -23,7 +24,14 @@ const ButtonInfoMain = styled.button <{TextColor: string}>`
     justify-content: center;
 `
 
-const InfoImg = styled.img `
+const InfoImg = styled.svg <{ArrrowColor: string}> `
+    background: url(${props => props.ArrrowColor});
+    width: 13px;
+    height: 13px;
+    border: 0px;
+    stroke: none;
+    background-repeat: no-repeat;
+    background-size: contain;
     margin-top:-5px;
     margin-left: 5px;
     cursor: pointer;
@@ -61,7 +69,7 @@ export const InfoButton = () => {
         } catch {}
         ButtonInfoMainV = <ButtonInfoMain TextColor={theme.TextColor}>
             1 {tokenFrom.base} = {price} {tokenTo.base}
-            <InfoImg src={ArrowSvg}></InfoImg>
+            <InfoImg ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></InfoImg>
         </ButtonInfoMain>
     }
 
@@ -83,7 +91,7 @@ export const InfoButton = () => {
         <ButtonInfoMain TextColor={theme.TextColor} onClick={openInfoBlock}>
             {((tokenTo.base != "Select token" && tokenTo.logo != "") && (tokenFrom.base != "Select token" && tokenFrom.logo != ""))? <ButtonInfoMain TextColor={theme.TextColor}>
                 1 {tokenFrom.base} = {price} {tokenTo.base}
-                <InfoImg src={ArrowSvg}></InfoImg>
+                <InfoImg ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></InfoImg>
             </ButtonInfoMain> : <></>}
         </ButtonInfoMain>
     )

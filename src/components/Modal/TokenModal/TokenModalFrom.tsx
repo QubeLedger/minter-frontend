@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { animated } from '@react-spring/web';
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import loop from '../../../assets/svg/loop.svg'
-import arrow from '../../../assets/svg/InfoArrrowDown.svg'
+import ArrowSvg from '../../../assets/svg/InfoArrrowDown.svg'
+import ArrowSvgBlack from '../../../assets/svg/InfoArrowDownBlack.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom';
 import { useShowModalFrom } from '../../../hooks/useShowModal';
 import { useToggleTheme } from '../../../hooks/useToggleTheme';
@@ -114,10 +115,15 @@ const PopupTextH3 = styled.h3 <{TextColor: string}>`
     text-align: left;
 `
 
-const ModalArrowImg = styled.img `
+const ModalArrowImg = styled.svg <{ArrrowColor: string}> `
+    background: url(${props => props.ArrrowColor});
+    width: 15px;
+    height: 15px;
     margin-top:-5px;
     cursor: pointer;
     margin-left: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
 `
 
 
@@ -159,13 +165,13 @@ export const TokenModalFrom = () => {
     if((tokenFrom.base == "Select token") && tokenFrom.logo == "") {
         TokenOpenButton = <OpenButton onClick={open} >
             <PopupTextH3 TextColor={theme.TextColor}>{tokenFrom.base}</PopupTextH3>
-            <ModalArrowImg src={arrow}></ModalArrowImg>
+            <ModalArrowImg  ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></ModalArrowImg>
         </OpenButton>
     } else {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenFrom.logo}></PopupImg>
             <PopupTextH3 TextColor={theme.TextColor}>{tokenFrom.base}</PopupTextH3>
-            <ModalArrowImg src={arrow}></ModalArrowImg>
+            <ModalArrowImg  ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></ModalArrowImg>
         </OpenButton>
     }
 

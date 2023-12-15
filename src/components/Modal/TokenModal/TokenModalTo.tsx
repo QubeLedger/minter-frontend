@@ -3,7 +3,8 @@ import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
 import { animated } from '@react-spring/web';
 import loop from '../../../assets/svg/loop.svg'
-import arrow from '../../../assets/svg/InfoArrrowDown.svg'
+import ArrowSvg from '../../../assets/svg/InfoArrrowDown.svg'
+import ArrowSvgBlack from '../../../assets/svg/InfoArrowDownBlack.svg'
 import { TokensCollateral, TokensQAsset } from '../../Tokens/Tokens';
 import { useTokenTo } from '../../../hooks/useTokenTo';
 import { useShowModalTo } from '../../../hooks/useShowModal';
@@ -114,10 +115,15 @@ const PopupTextH3 = styled.h3 <{TextColor: string}>`
     background-color: transparent;
 `
 
-const ModalArrowImg = styled.img `
+const ModalArrowImg = styled.svg <{ArrrowColor: string}>`
+    background: url(${props => props.ArrrowColor});
+    width: 15px;
+    height: 15px;
     margin-top:-5px;
     cursor: pointer;
     margin-left: 5px;
+    background-repeat: no-repeat;
+    background-size: contain;
 `
 
 
@@ -160,13 +166,13 @@ export const TokenModalTo = () => {
     if((tokenTo.base == "Select token") && tokenTo.logo == "") {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupTextH3 TextColor={theme.TextColor}>{tokenTo.base}</PopupTextH3>
-            <ModalArrowImg src={arrow}></ModalArrowImg>
+            <ModalArrowImg ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></ModalArrowImg>
         </OpenButton>
     } else {
         TokenOpenButton = <OpenButton onClick={open}>
             <PopupImg src={tokenTo.logo}></PopupImg>
             <PopupTextH3 TextColor={theme.TextColor}>{tokenTo.base}</PopupTextH3>
-            <ModalArrowImg src={arrow}></ModalArrowImg>
+            <ModalArrowImg ArrrowColor={theme.active == true ? ArrowSvgBlack : ArrowSvg}></ModalArrowImg>
         </OpenButton>
     }
     return (
