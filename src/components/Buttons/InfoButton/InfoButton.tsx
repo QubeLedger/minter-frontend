@@ -22,6 +22,7 @@ const ButtonInfoMain = styled.button <{TextColor: string}>`
     align-items: center;
     flex-direction: row;
     justify-content: center;
+    padding: 0;
 `
 
 const InfoImg = styled.svg <{ArrrowColor: string}> `
