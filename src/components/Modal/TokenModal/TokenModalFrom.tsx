@@ -53,6 +53,7 @@ const OpenButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 `
 
 const CloseDiv = styled.div`
@@ -106,6 +107,7 @@ const PopupImg = styled.img`
     width: 25px;
     height: 25px;
     background-color: transparent;
+    margin-left: -20px;
 `
 const PopupTextH3 = styled.h3 <{TextColor: string}>`
     color: ${props => props.TextColor};
@@ -117,8 +119,8 @@ const PopupTextH3 = styled.h3 <{TextColor: string}>`
 
 const ModalArrowImg = styled.svg <{ArrrowColor: string}> `
     background: url(${props => props.ArrrowColor});
-    width: 15px;
-    height: 15px;
+    width: 11px;
+    height: 11px;
     margin-top:-5px;
     cursor: pointer;
     margin-left: 5px;

@@ -12,7 +12,7 @@ const FromInputAmount = styled.input <{TextColor: string}>`
     text-align: right;
     color: ${props => props.TextColor};
     font-size: 24px;
-    margin-right: 8px;
+    margin-right: 7px;
     outline-width: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `
