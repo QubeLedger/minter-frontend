@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import Sun from '../../../assets/svg/sun.svg'
 import Moon from '../../../assets/svg/Moon.svg'
-import { useToggleTheme } from '../../../hooks/useToggleTheme'
+import { ThemeDefaultState, ThemeWhiteState, useToggleTheme } from '../../../hooks/useToggleTheme'
+import { useEffect } from 'react'
 
 
 
@@ -30,43 +31,22 @@ const BlackThemeIcon = styled.svg  <{ArrrowColor: string}>`
 export const ChengeTheme = () => {
 
     const [theme, setTheme] = useToggleTheme();
-    
+
 
     function toggleTheme () {
         if(theme.active == false) {
-            setTheme({
-                active: true,
-                backgroundColor: '#ecebeb',
-                headerColor: 'transparent',
-                containerColor: '#ffffff',
-                TextColor: '#333',
-                FieldColor: '#ecebeb',
-                Border: '2px solid #dbdbdb',
-                FieldsBorder: '3px solid #dbdbdb',
-                modalBgColor: '#ffffff',
-                inputBgColor: '#ecebeb',
-                connectBtnColor: '#ecebeb',
-            })
+            localStorage.setItem('minterTheme', 'white')
+            setTheme(ThemeWhiteState)
         } else if (theme.active == true) {
-            setTheme({
-                active: false,
-                backgroundColor: 'linear-gradient(#121212, #1f1f1f)',
-                headerColor: 'rgb(32,32,32)',
-                containerColor: '#232323',
-                TextColor: 'white',
-                FieldColor: '#1a1a1a',
-                Border: '2px solid black',
-                FieldsBorder: '3px solid #333',
-                modalBgColor: 'rgb(35,35,35)',
-                inputBgColor: '#323232',
-                connectBtnColor: 'rgb(50,50,50)',
-            })
+            localStorage.setItem('minterTheme', 'black')
+            setTheme(ThemeDefaultState)
         }
+        
     }
 
     return(
         <SwapButton onClick={toggleTheme}>
-            <BlackThemeIcon ArrrowColor={theme.active == true ? Moon : Sun}></BlackThemeIcon>
+            <BlackThemeIcon  ArrrowColor={theme.active == true ? Moon : Sun}></BlackThemeIcon>
         </SwapButton>
     )
 }

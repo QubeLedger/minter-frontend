@@ -14,7 +14,7 @@ interface Theme {
   connectBtnColor: string;
 }
 
-const defaultState: Theme = { 
+export const ThemeDefaultState: Theme = { 
     active: false, 
     backgroundColor: 'linear-gradient(#121212, #1f1f1f)', 
     headerColor: 'rgb(32,32,32)' ,
@@ -28,4 +28,25 @@ const defaultState: Theme = {
     connectBtnColor: 'rgb(50,50,50)',
 };
 
-export const [useToggleTheme] = createStore(defaultState);
+export const ThemeWhiteState: Theme = { 
+  active: true,
+  backgroundColor: '#ecebeb',
+  headerColor: 'transparent',
+  containerColor: '#ffffff',
+  TextColor: '#333',
+  FieldColor: '#ecebeb',
+  Border: '2px solid #dbdbdb',
+  FieldsBorder: '3px solid #dbdbdb',
+  modalBgColor: '#ffffff',
+  inputBgColor: '#ecebeb',
+  connectBtnColor: '#ecebeb',
+};
+
+
+
+
+
+export const [useToggleTheme] = createStore(ThemeDefaultState);
+
+
+

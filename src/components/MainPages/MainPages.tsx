@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import { MainHeader } from '../Headers/MainHeader/MainHeader'
 import Container from '../index'
 import Alert from '../Alert/Alert'
-import { useToggleTheme } from '../../hooks/useToggleTheme'
+import { useToggleTheme, ThemeDefaultState, ThemeWhiteState } from '../../hooks/useToggleTheme'
+import { useEffect } from 'react'
 
 
 
@@ -18,7 +19,7 @@ const App = styled.div <{backgroundColor: string}> `
 
 export const MainPages = () => {
 
-    const [theme, setTheme] = useToggleTheme()
+    const [theme, setTheme] = useToggleTheme();
 
     return(
         <App backgroundColor={theme.backgroundColor}>
