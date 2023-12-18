@@ -6,7 +6,6 @@ const PopupChangeToToken = styled.button`
     height:30px;
     border:none;
     outline: none;
-    margin-left: 15px;
     background-color: transparent;
     padding: 0;
     text-align: right;

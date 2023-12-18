@@ -9,13 +9,14 @@ import { TokenType } from '../../../constants/tokens'
 import { useEffect, useState } from 'react'
 import { useAmountInStore } from '../../../hooks/useAmountInStore'
 import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
-const ConvertTo = styled.div `
+const ConvertTo = styled.div <{FieldColor: string, FieldsBorder: string}> `
     width:85%;
     height:80px;
-    background-color: #1a1a1a;
-    border: 3px solid #333333;
+    background-color: ${props => props.FieldColor};
+    border: ${props => props.FieldsBorder};
     border-radius: 10px;
     margin-left:auto;
     margin-right:auto;
@@ -24,11 +25,11 @@ const ConvertTo = styled.div `
     align-items: center;
 `
 
-const ToFieldOutputAmount = styled.div`
+const ToFieldOutputAmount = styled.div <{TextColor: string}>`
     width: 100%;
     height:100%;
     background: transparent;
-    color: rgb(220,220,220);
+    color: ${props => props.TextColor};
     text-align: right;
     font-size: 23px;
     margin-right: 15px;
@@ -38,10 +39,10 @@ const ToFieldOutputAmount = styled.div`
     'Helvetica Neue', sans-serif;
 `
 
-const ToFieldText = styled.a`
+const ToFieldText = styled.a <{TextColor: string}>`
    font-weight: 500;
    font-size: 20px;
-   color: white;
+   color: ${props => props.TextColor};
    padding-left: 30px;
    position: absolute;
    margin-top: -125px;
@@ -75,6 +76,7 @@ export const ToField = () => {
     const [ amt, setAmt ] = useState('');
     const [ tokenTo, setTokenTo ] = useTokenTo();
     const [ tokenFrom, setTokenFrom ] = useTokenFrom();
+    const [theme, setTheme] = useToggleTheme()
 
     let tokenInfoTo = (tokenTo.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenTo.base);
     let tokenInfoFrom = (tokenFrom.type == "collateral" ? TOKEN_INFO_COLLATERAL : TOKEN_INFO_QASSET).find((token: any) => token.Base == tokenFrom.base);
@@ -101,11 +103,11 @@ export const ToField = () => {
     }, [amtIn, action, tokenInfoFrom, pair]);
 
     return(
-        <ConvertTo>
-            <ToFieldText>To</ToFieldText>
+        <ConvertTo FieldColor={theme.FieldColor} FieldsBorder={theme.FieldsBorder}>
+            <ToFieldText TextColor={theme.TextColor}>To</ToFieldText>
             <Down>
                 <PopupSelectToToken></PopupSelectToToken>
-                <ToFieldOutputAmount placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
+                <ToFieldOutputAmount TextColor={theme.TextColor} placeholder='0'>{amtOut.amt}</ToFieldOutputAmount>
             </Down>
             <BalanceTo></BalanceTo>
         </ConvertTo>

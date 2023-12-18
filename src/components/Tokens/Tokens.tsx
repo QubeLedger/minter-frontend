@@ -11,16 +11,18 @@ import { useEffect, useState } from 'react';
 import { Token } from '../../hooks/useTokenFrom';
 import { Coin, useBalancesStore } from '../../hooks/useBalanceStore';
 import { UpdateBalances } from '../../connection/balances';
+import { useToggleTheme } from '../../hooks/useToggleTheme';
 
-const Arrtokens = styled.div`
+const Arrtokens = styled.div <{containerTextColor: string, Border: string}>`
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    border-top: 2px solid black;
+    border-top: ${props => props.Border};
+    color: ${props => props.containerTextColor};
 `
 
-const TokenFields = styled.button`
+const TokenFields = styled.button <{containerTextColor: string}>`
     background-color: transparent;
     border: none;
     width: 100%;
@@ -28,7 +30,7 @@ const TokenFields = styled.button`
     flex-direction: row;
     align-items: center;
     font-family: 'Metropolis', sans-serif;
-    color: white;
+    color: ${props => props.containerTextColor};
     cursor: pointer;
 `
 
@@ -39,20 +41,18 @@ const Img = styled.img`
     margin-left: 26px;
 `
 
-const TokensText = styled.div`
+const TokensText = styled.div `
     margin-left: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 `
 
-const TokensTextH3 = styled.h3`
+const TokensTextH3 = styled.h3 `
     margin-top: 15px;
-    color: white;
 `
 
-const TokensTextH2Number = styled.h2` 
-    color: white;
+const TokensTextH2Number = styled.h2 ` 
     margin-left: auto;
     margin-right: 26px;
 `
@@ -79,6 +79,7 @@ export const TokensCollateral = () => {
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
     const [balances, setBalances] = useBalancesStore();
     const [wallet, setWallet] = useWallet();
+    const [theme, setTheme] = useToggleTheme()
 
     useEffect(() => {
         async function update() {
@@ -89,7 +90,7 @@ export const TokensCollateral = () => {
     }, [])
 
     const tokens = TOKEN_INFO_COLLATERAL.map((token) => 
-            <TokenFields onClick={() => {
+            <TokenFields containerTextColor={theme.TextColor} onClick={() => {
                 if(showModalFrom.b == true) {
                     setTokenFrom({
                         logo: token.Logo,
@@ -107,15 +108,15 @@ export const TokensCollateral = () => {
                 setShowModalTo({b: false})
             }}>
             <Img src={token.Logo}></Img>
-            <TokensText>
+            <TokensText >
                 <TokensTextH3>{token.Base}</TokensTextH3>
                 <TokensTextH5>{token.Network}</TokensTextH5>
             </TokensText>
-            <TokensTextH2Number>{getBalance(balances, token.Denom)}</TokensTextH2Number>
+            <TokensTextH2Number >{getBalance(balances, token.Denom)}</TokensTextH2Number>
         </TokenFields>       
     )
     return(
-        <Arrtokens>
+        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
             {tokens}
         </Arrtokens>
     )
@@ -127,7 +128,7 @@ export const TokensQAsset = () => {
     const [ showModalFrom, setShowModalFrom ] = useShowModalFrom();
     const [ showModalTo, setShowModalTo ] = useShowModalTo();
     const [balances, setBalances] = useBalancesStore();
-
+    const [theme, setTheme] = useToggleTheme()
     const [wallet, setWallet] = useWallet();
 
     useEffect(() => {
@@ -139,7 +140,7 @@ export const TokensQAsset = () => {
     }, [])
     
     const tokens = TOKEN_INFO_QASSET.map((token) => 
-        <TokenFields onClick={() => {
+        <TokenFields containerTextColor={theme.TextColor} onClick={() => {
             if(showModalFrom.b == true) {
                 setTokenFrom({
                     logo: token.Logo,
@@ -157,15 +158,15 @@ export const TokensQAsset = () => {
             setShowModalTo({b: false})
         }}>
             <Img src={token.Logo}></Img>
-            <TokensText>
-                <TokensTextH3>{token.Base}</TokensTextH3>
+            <TokensText >
+                <TokensTextH3 >{token.Base}</TokensTextH3>
                 <TokensTextH5>{token.Network}</TokensTextH5>
             </TokensText>
-            <TokensTextH2Number>{getBalance(balances, token.Denom)}</TokensTextH2Number>
+            <TokensTextH2Number >{getBalance(balances, token.Denom)}</TokensTextH2Number>
         </TokenFields>       
     )
     return(
-        <Arrtokens>
+        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
             {tokens}
         </Arrtokens>
     )

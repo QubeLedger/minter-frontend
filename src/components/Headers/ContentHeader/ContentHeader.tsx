@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 const ContainerHeader = styled.div `
     width:85%;
@@ -10,16 +11,19 @@ const ContainerHeader = styled.div `
     }
 `
 
-const ContainerHeaderText = styled.h2 `
+const ContainerHeaderText = styled.h2 <{TextColor: string}> `
     font-size: 25px;
     font-family: 'Metropolis', sans-serif;
-    color: white;
+    color: ${props => props.TextColor};
 `
 
 export const ContentHeader = () => {
+
+    const [theme, setTheme] = useToggleTheme()
+    
     return(
         <ContainerHeader>
-            <ContainerHeaderText>Convert qAssets</ContainerHeaderText>
+            <ContainerHeaderText TextColor={theme.TextColor}>Convert qAssets</ContainerHeaderText>
         </ContainerHeader>
     )
 }

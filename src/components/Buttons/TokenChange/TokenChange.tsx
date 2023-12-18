@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import ConvertSwap from '../../../assets/svg/ConvertSwap.svg'
+import ConvertSwapBlack from '../../../assets/svg/ConvertSwapBlack.svg'
 import { useTokenFrom } from '../../../hooks/useTokenFrom'
 import { useTokenTo } from '../../../hooks/useTokenTo'
 import { useAmountInStore } from '../../../hooks/useAmountInStore'
 import { useAmountOutStore } from '../../../hooks/useAmountOutStore'
+import { useToggleTheme } from '../../../hooks/useToggleTheme'
 
 
 const TokenChangeDiv = styled.div `
@@ -17,9 +19,12 @@ const TokenChangeDiv = styled.div `
     cursor: pointer;
 `
 
-const SwapImage = styled.img`
+const SwapImage = styled.svg <{ArrrowColor: string}>`
+    background: url(${props => props.ArrrowColor});
     width: 50px;
     height: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
 `
 
 export const TokenChange = () => {
@@ -27,6 +32,7 @@ export const TokenChange = () => {
     const [tokenTo, setTokenTo] = useTokenTo();
     const [amountIn, setAmountIn] = useAmountInStore();
     const [amountOut, setAmountOut] = useAmountOutStore();
+    const [theme, setTheme] = useToggleTheme()
 
     let Handler = async () => {
         let oldTokenFrom = tokenFrom
@@ -48,7 +54,7 @@ export const TokenChange = () => {
 
     return(
         <TokenChangeDiv onClick={Handler}>
-            <SwapImage src={ConvertSwap}></SwapImage>
+            <SwapImage ArrrowColor={theme.active == true ? ConvertSwapBlack : ConvertSwap}></SwapImage>
         </TokenChangeDiv>
     )
 }
