@@ -4,19 +4,19 @@ import { ThemeDefaultState, ThemeWhiteState, useToggleTheme } from './hooks/useT
 
 
 function App() {
+        const [theme, setTheme] = useToggleTheme();
 
-  const [theme, setTheme] = useToggleTheme();
+        useEffect(() => {
+                if (localStorage.getItem('minterTheme') != "") {
+                setTheme(localStorage.getItem('minterTheme') == 'black' ? ThemeDefaultState : ThemeWhiteState)
+                } else {
+                setTheme(ThemeDefaultState)
+                }
+        }, [])
 
-  useEffect(() => {
-    if (localStorage.getItem('minterTheme') != "") {
-          setTheme(localStorage.getItem('minterTheme') == 'black' ? ThemeDefaultState : ThemeWhiteState)
-        } else {
-          setTheme(ThemeDefaultState)
-      }
-    })
-  return (
-      <MainPages ></MainPages>
-  );
+        return (
+                <MainPages ></MainPages>
+        );
 }
 
 export default App;
