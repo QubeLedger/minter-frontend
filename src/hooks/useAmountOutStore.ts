@@ -5,6 +5,6 @@ interface AmountOut {
         amt: string;
 }
 
-const defaultState: AmountOut = { amt: "0" };
+const defaultState: AmountOut = { amt: "" };
 
 export const [useAmountOutStore] = createStore(defaultState);
