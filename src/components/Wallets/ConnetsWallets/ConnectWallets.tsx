@@ -56,7 +56,7 @@ const WalletsTextH3 = styled.h3 <{TextColor: string}>`
     color: ${props => props.TextColor};
     font-size: 18px;
     position: absolute;
-    margin-top: 16em;
+    margin-top: 12em;
 `
 
 

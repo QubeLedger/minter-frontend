@@ -50,7 +50,11 @@ const OpenButton = styled.button`
     font-family: 'Metropolis', sans-serif;
     font-size: 18px;
     font-weight: 500;
-    padding-top: 9px;
+    padding: 9px 15px 9px 15px;
+`
+
+const ConnectText = styled.a`
+    margin-top: 5px; 
 `
 
 const CloseDiv = styled.div`
@@ -84,6 +88,18 @@ const ModalText = styled.h4`
 const WalletsTextH3 = styled.h3`
     margin-top: 15px;
     color: white;
+`
+
+const WalletsText = styled.div`
+    text-align: right;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: -5px;
+`
+
+const BalanceText = styled.div`
+    text-align: right;
+    font-size: 13px;
 `
 
 
@@ -134,12 +150,18 @@ export const ConnectModal = () => {
     }
 
     if(wallet.type == "keplr") {
-        walletAddr =  '..' + String(wallet.wallet.bech32Address).slice(37,43);
+        walletAddr =  'qube...' + String(wallet.wallet.bech32Address).slice(38,43);
     }
+
+    let BalanceAddrText = <WalletsText>{walletAddr}<BalanceText>0 QUBE</BalanceText></WalletsText>;
+
+    
 
     return (
       <div>
-        <OpenButton onClick={wallet.init == false? open : disconnect}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
+        <OpenButton onClick={wallet.init == false? open : disconnect}>
+            {walletAddr == "" || undefined ? <ConnectText>Connect</ConnectText> : BalanceAddrText }
+            </OpenButton>
         <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent  modalBgColor={theme.modalBgColor} Border={theme.Border}>
                 <CloseDiv>              
