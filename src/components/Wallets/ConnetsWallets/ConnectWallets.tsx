@@ -9,6 +9,9 @@ import { useClient } from '../../../hooks/useClient'
 import { useBalancesStore } from '../../../hooks/useBalanceStore'
 import { UpdateBalances } from '../../../connection/balances'
 import { useToggleTheme } from '../../../hooks/useToggleTheme'
+import { useAlertStore } from '../../../hooks/useAlertStore'
+import { useShowAlert } from '../../../hooks/useShowModal'
+
 
 const ArrWallets = styled.div`
     width: 100%;
@@ -63,19 +66,30 @@ export const ConnectWallets = () => {
     const [ c, setClient ] = useClient();
     const [ w, setWallet ] = useWallet();
     const [ balances, setBalances ] = useBalancesStore();
+
     const [theme, setTheme] = useToggleTheme()
+    const [alertStore, setAlertStore] = useAlertStore();
+    const [showAlerts, setShowAlerts] = useShowAlert();
+
     
     let ConnectKeplrHandler = async () => {
-        let [connected, walletKeplr] = await ConnectKeplr()
-        let wallet = {init: true, wallet: walletKeplr, type: "keplr"};
-        setConnectWallet({connected})
-        setWallet(wallet)
+        let [connected, walletKeplr, alert] = await ConnectKeplr();
         
-        let client = await InitSigner();
-        setClient(client)
+        if(Object.keys(alert).length !== 0) {
+            alertStore.push(alert) 
+            setShowAlerts({b: true})
+        }
+        if (connected == true) {
+            let wallet = {init: true, wallet: walletKeplr, type: "keplr"};
+            setConnectWallet({connected})
+            setWallet(wallet)
+            
+            let client = await InitSigner();
+            setClient(client)
 
-        let blns = await UpdateBalances(wallet, balances);
-        setBalances(blns)
+            let blns = await UpdateBalances(wallet, balances);
+            setBalances(blns)
+        }
     }
     return(
         <ArrWallets>
