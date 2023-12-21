@@ -121,6 +121,9 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
             width: 335px;
             height: 600px;
         }
+        @media (max-width: 330px) {
+            width: 305px;
+        }
     }
 `
 
