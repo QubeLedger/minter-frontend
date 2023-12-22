@@ -24,7 +24,7 @@ const MainContainer = styled.div <{containerColor: string, Border: string}> `
         max-width:100%;
         height:100%;
         border-radius: 0px;
-        margin-top:0px;
+        margin-top:-10px;
     }
 `
 

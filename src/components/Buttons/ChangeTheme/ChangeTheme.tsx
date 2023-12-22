@@ -13,6 +13,10 @@ const SwapButton= styled.button`
     border: none;
     padding: 0;
     border-radius: 50px;
+    outline: none;
+    @media (max-width: 500px){
+        margin-right: 26px;
+    }
 `
 
 const BlackThemeIcon = styled.svg  <{ArrrowColor: string}>`
@@ -23,7 +27,7 @@ const BlackThemeIcon = styled.svg  <{ArrrowColor: string}>`
     background-size: contain;
     cursor: pointer;
     @media (max-width: 500px){
-        margin-right: 26px;
+        margin-right: 0px;
     }
 `
 
