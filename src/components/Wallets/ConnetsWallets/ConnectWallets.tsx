@@ -1,6 +1,6 @@
 import styled from 'styled-components' 
 import keplr from '../../../assets/svg/Keplr.svg'
-import leap from '../../../assets/svg/LeapWallet.svg'
+import leap from '../../../assets/svg/LeapWalletSoon.svg'
 import { ConnectKeplr } from '../../../connection/keplr'
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore'
 import { useWallet } from '../../../hooks/useWallet'
