@@ -13,7 +13,6 @@ function App() {
                 setTheme(ThemeDefaultState)
                 }
         }, [])
-
         return (
                 <MainPages ></MainPages>
         );

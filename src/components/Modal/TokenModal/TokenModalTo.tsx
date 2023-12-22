@@ -139,7 +139,12 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
         border-radius: 10px;
         border: ${props => props.Border};
         margin-top: 70px;
-        
+        @media (max-width: 500px) {
+            width: 335px;
+        }
+        @media (max-width: 330px) {
+            width: 305px;
+        }
     }
 `
 

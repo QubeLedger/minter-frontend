@@ -6,6 +6,8 @@ import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWallet
 import { useWallet } from '../../../hooks/useWallet';
 import { useShowWalletModal } from '../../../hooks/useShowModal';
 import { useToggleTheme } from '../../../hooks/useToggleTheme';
+import { useBalancesStore } from '../../../hooks/useBalanceStore';
+import { QUBE_TESTNET_INFO } from '../../../constants';
 
 
 const ModalDialogOverlay = animated(DialogOverlay);
@@ -50,7 +52,11 @@ const OpenButton = styled.button`
     font-family: 'Metropolis', sans-serif;
     font-size: 18px;
     font-weight: 500;
-    padding-top: 9px;
+    padding: 9px 15px 9px 15px;
+`
+
+const ConnectText = styled.a`
+    margin-top: 5px; 
 `
 
 const CloseDiv = styled.div`
@@ -86,6 +92,18 @@ const WalletsTextH3 = styled.h3`
     color: white;
 `
 
+const WalletsText = styled.div`
+    text-align: right;
+    font-weight: 500;
+    font-size: 15px;
+    margin-top: -5px;
+`
+
+const BalanceText = styled.div`
+    text-align: right;
+    font-size: 13px;
+`
+
 
 
 const ModalDialogContent = animated(DialogContent);
@@ -105,6 +123,9 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
             width: 335px;
             height: 600px;
         }
+        @media (max-width: 330px) {
+            width: 305px;
+        }
     }
 `
 
@@ -117,6 +138,7 @@ export const ConnectModal = () => {
     const [ wallet, setWallet ] = useWallet();
     const [ walletModalStatus, setWalletModalStatus ] = useShowWalletModal();
     const [theme, setTheme] = useToggleTheme()
+    const [balances, setBalances] = useBalancesStore();
 
     const open = () => {setWalletModalStatus({b: true})};
     const close = () => {setWalletModalStatus({b: false})};
@@ -133,13 +155,24 @@ export const ConnectModal = () => {
         close()
     }
 
+    let BalanceAddrText;
+
     if(wallet.type == "keplr") {
-        walletAddr =  '..' + String(wallet.wallet.bech32Address).slice(37,43);
+        walletAddr =  'qube...' + String(wallet.wallet.bech32Address).slice(38,43);
+        let qube_amount = 0;
+        balances.map((coin) => {
+            if(coin.denom == QUBE_TESTNET_INFO.feeCurrencies[0].coinMinimalDenom) {
+                qube_amount = Number(coin.amt);
+            }
+        })
+        BalanceAddrText = <WalletsText>{walletAddr}<BalanceText>{(qube_amount / (10 ** QUBE_TESTNET_INFO.feeCurrencies[0].coinDecimals)).toFixed(2)} QUBE</BalanceText></WalletsText>;
     }
 
     return (
       <div>
-        <OpenButton onClick={wallet.init == false? open : disconnect}>{walletAddr == "" || undefined ? "Connect" : walletAddr}</OpenButton>
+        <OpenButton onClick={wallet.init == false? open : disconnect}>
+            {walletAddr == "" || undefined ? <ConnectText>Connect</ConnectText> : BalanceAddrText }
+            </OpenButton>
         <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent  modalBgColor={theme.modalBgColor} Border={theme.Border}>
                 <CloseDiv>              
