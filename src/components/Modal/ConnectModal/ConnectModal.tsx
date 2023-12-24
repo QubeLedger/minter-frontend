@@ -46,11 +46,11 @@ const OpenButton = styled.button`
     border:none;
     outline: none;
     cursor: pointer;
-    outline: none;
+    border-radius: 50px;
     font-family: 'Metropolis', sans-serif;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 9px 15px 9px 15px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 30px 9px 30px;
 `
 
 const ConnectText = styled.a`
@@ -93,8 +93,10 @@ const WalletsTextH3 = styled.h3`
 const WalletsText = styled.div`
     text-align: right;
     font-weight: 500;
-    font-size: 15px;
-    margin-top: -5px;
+    font-size: 16px;
+    margin-top: -7px;
+    margin-left: -10px;
+    margin-right: -10px;
 `
 
 const BalanceText = styled.div`
