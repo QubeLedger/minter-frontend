@@ -8,6 +8,7 @@ import { useShowAlert } from '../../hooks/useShowModal';
 import { AlertType } from "../../hooks/useAlertStore";
 import { render } from 'react-dom';
 import { AlertTitle } from '@mui/material';
+import { useToggleTheme } from '../../hooks/useToggleTheme';
 
 const AlertStack = styled.div`
         width: 280px;
@@ -33,8 +34,15 @@ const AlertClose = styled.h3`
         cursor: pointer;
 `
 
-const alertTextStyle = {
+const alertTextStyleWhite = {
         color: "white",
+        height: "45px",
+        fontSize: "15px",
+        paddingTop: "10px"
+};
+
+const alertTextStyleBlack = {
+        color: "black",
         height: "45px",
         fontSize: "15px",
         paddingTop: "10px"
@@ -48,6 +56,7 @@ export default function AlertBlock() {
 
         const [showAlerts, setShowAlert] = useShowAlert();
         const [alertsStore, setAlerts] = useAlertStore();
+        const [theme, setTheme] = useToggleTheme();
 
         const close = async () => {
                 setShowAlert({b: false})
@@ -71,7 +80,7 @@ export default function AlertBlock() {
                                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                                 onClose={close}
                                 >
-                                        <Alert variant="outlined" severity={alertsStore[0]?.Type || 'error'} color={alertsStore[0]?.Color || "error"} style={alertTextStyle}>
+                                        <Alert variant="outlined" severity={alertsStore[0]?.Type || 'error'} color={alertsStore[0]?.Color || "error"} style={theme.active == false ? alertTextStyleWhite : alertTextStyleBlack}>
                                                 <AlertTitle>{alertsStore[0]?.Text}</AlertTitle>
                                         </Alert>
                                 </Snackbar>
