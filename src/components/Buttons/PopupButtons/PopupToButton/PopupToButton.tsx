@@ -10,6 +10,7 @@ const PopupChangeToToken = styled.button <{HoverColor: string}>`
     background-color: transparent;
     padding: 0;
     text-align: right;
+    margin-top: 5px;
     :hover{
         background: ${props => props.HoverColor};
         transition: background .2s ease-in-out;
