@@ -48,13 +48,13 @@ const OpenButton = styled.button`
     cursor: pointer;
     border-radius: 50px;
     font-family: 'Metropolis', sans-serif;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
-    padding: 11px 30px 9px 30px;
+    padding: 9px 30px 9px 30px;
 `
 
 const ConnectText = styled.a`
-    margin-top: 5px; 
+    margin-top: 0px; 
 `
 
 const CloseDiv = styled.div`
