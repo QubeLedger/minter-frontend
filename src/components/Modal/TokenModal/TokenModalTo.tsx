@@ -96,6 +96,10 @@ const SearchDiv = styled.div <{inputBgColor: string, Border: string}>`
     border: ${props => props.Border};
 `
 
+const SearchBorder = styled.div <{Border: string}>`
+    border-bottom: ${props => props.Border};
+`
+
 const ModalText = styled.h4 <{TextColor: string}>`
     margin-left: 26px;
     font-size: 20px;
@@ -106,7 +110,6 @@ const PopupImg = styled.img`
     width: 25px;
     height: 25px;
     background-color: transparent;
-    margin-left: -25px;
 `
 const PopupTextH3 = styled.h3 <{TextColor: string}>`
     color: ${props => props.TextColor};
@@ -191,10 +194,12 @@ export const TokenModalTo = () => {
                     <span aria-hidden>×</span>
                     </CloseButton>
                 </CloseDiv>
-                <SearchDiv inputBgColor={theme.inputBgColor} Border={theme.Border}>
-                    <LoopImg src={loop}></LoopImg>
-                    <SearchToken placeholder='Search'></SearchToken>
-                </SearchDiv>
+                <SearchBorder Border={theme.Border}>
+                    <SearchDiv inputBgColor={theme.inputBgColor} Border={theme.Border}>
+                        <LoopImg src={loop}></LoopImg>
+                        <SearchToken placeholder='Search'></SearchToken>
+                    </SearchDiv>
+                </SearchBorder>
                 {TokenModal}
             </StyledDialogContent>
         </StyledDialogOvelay>

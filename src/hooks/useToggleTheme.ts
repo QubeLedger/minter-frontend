@@ -12,6 +12,8 @@ interface Theme {
   modalBgColor: string;
   inputBgColor: string;
   connectBtnColor: string;
+  HoverColor: string;
+  ModalHoverColor: string;
 }
 
 export const ThemeDefaultState: Theme = { 
@@ -26,6 +28,8 @@ export const ThemeDefaultState: Theme = {
     modalBgColor: 'rgb(35,35,35)',
     inputBgColor: '#323232',
     connectBtnColor: 'rgb(50,50,50)',
+    HoverColor: '#222222',
+    ModalHoverColor: '#2d2d2d'
 };
 
 export const ThemeWhiteState: Theme = { 
@@ -40,6 +44,8 @@ export const ThemeWhiteState: Theme = {
   modalBgColor: '#ffffff',
   inputBgColor: '#ecebeb',
   connectBtnColor: '#ecebeb',
+  HoverColor: '#e2e2e2',
+  ModalHoverColor: '#e2e2e2'
 };
 
 

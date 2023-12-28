@@ -13,13 +13,26 @@ import { Coin, useBalancesStore } from '../../hooks/useBalanceStore';
 import { UpdateBalances } from '../../connection/balances';
 import { useToggleTheme } from '../../hooks/useToggleTheme';
 
-const Arrtokens = styled.div <{containerTextColor: string, Border: string}>`
-    width: 100%;
+const Arrtokens = styled.div <{containerTextColor: string, Border: string, ModalHoverColor: string}>`
+    width: 90%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    border-top: ${props => props.Border};
+    margin-top: 10px;
     color: ${props => props.containerTextColor};
+    :hover{
+        background: ${props => props.ModalHoverColor};
+        transition: background .2s ease-in-out;
+        border-radius: 10px;
+    }
+`
+
+const TokenDiv = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 `
 
 const TokenFields = styled.button <{containerTextColor: string}>`
@@ -116,9 +129,12 @@ export const TokensCollateral = () => {
         </TokenFields>       
     )
     return(
-        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
-            {tokens}
-        </Arrtokens>
+        <TokenDiv>
+            <Arrtokens ModalHoverColor={theme.ModalHoverColor} containerTextColor={theme.TextColor} Border={theme.Border}>
+                {tokens}
+            </Arrtokens>
+        </TokenDiv>
+        
     )
 }
 
@@ -166,8 +182,10 @@ export const TokensQAsset = () => {
         </TokenFields>       
     )
     return(
-        <Arrtokens containerTextColor={theme.TextColor} Border={theme.Border}>
-            {tokens}
-        </Arrtokens>
+        <TokenDiv>
+            <Arrtokens ModalHoverColor={theme.ModalHoverColor} containerTextColor={theme.TextColor} Border={theme.Border}>
+                {tokens}
+            </Arrtokens>
+        </TokenDiv>
     )
 }
