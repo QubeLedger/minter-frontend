@@ -91,7 +91,7 @@ export const InfoBlock = () => {
             getPairData(String(pair?.PairId), QUBE_TESTNET_INFO.rest)
             .then(result => {
                 if(!Number.isNaN((result[0])) || !Number.isNaN(result[1]) || !Number.isNaN(result[2])) { 
-                    setInfo({br: result[0], m_fee: result[1] == "999.9" ? "blocked" : result[1], b_fee: result[2] == "999.9" ? "blocked" : result[2]}) 
+                    setInfo({br: result[0], m_fee: result[1] == "999.9" ? "Blocked" : result[1], b_fee: result[2] == "999.9" ? "Blocked" : result[2]}) 
                 }
             }), 
         500);
