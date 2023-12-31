@@ -28,7 +28,7 @@ const StyledDialogOvelay = styled(ModalDialogOverlay) `
     }
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled.button <{TextColor: string}>`
     width: 25px;
     height: 25px;
     font-size: 30px;
@@ -37,7 +37,7 @@ const CloseButton = styled.button`
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: white;
+    color: ${props => props.TextColor};
     margin-left: auto;
     outline: none;
 `
@@ -190,7 +190,7 @@ export const TokenModalTo = () => {
             <StyledDialogContent modalBgColor={theme.modalBgColor} Border={theme.Border}>
                 <CloseDiv>
                     <ModalText TextColor={theme.TextColor}>Select a token</ModalText>
-                    <CloseButton onClick={close}>
+                    <CloseButton TextColor={theme.TextColor} onClick={close}>
                     <span aria-hidden>×</span>
                     </CloseButton>
                 </CloseDiv>
