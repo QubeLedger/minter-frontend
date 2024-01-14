@@ -4,7 +4,7 @@ import { useToggleTheme } from '../../../../hooks/useToggleTheme'
 
 
 const PopupChangeFromToken = styled.button <{HoverColor: string}>`
-    width:100%;
+    max-width: 100%;
     height:30px;
     border:none;
     outline: none;
@@ -12,11 +12,6 @@ const PopupChangeFromToken = styled.button <{HoverColor: string}>`
     padding: 0;
     text-align: right;
     margin-top: 5px;
-    :hover{
-        background: ${props => props.HoverColor};
-        transition: background .3s ease-in-out;
-        border-radius: 10px;
-    }
 `
 
 export const PopupFromButton = () => {

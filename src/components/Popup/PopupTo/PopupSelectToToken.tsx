@@ -2,12 +2,12 @@ import styled from 'styled-components'
 import { PopupToButton } from '../../Buttons/PopupButtons/PopupToButton/PopupToButton'
 
 const PopupSelectTokenTo = styled.div`
-    width:65%;
+    max-width:100%;
     height:100%;
     display: flex;
     justify-content:space-between;
     align-items: center;
-    margin-left: 18px;
+    margin-left: 15px;
 `
 
 export const PopupSelectToToken = () => {

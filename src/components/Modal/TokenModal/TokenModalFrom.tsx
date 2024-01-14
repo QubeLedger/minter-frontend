@@ -54,6 +54,7 @@ const OpenButton = styled.button`
     align-items: center;
     justify-content: center;
     padding: 0;
+    text-align: left;
 `
 
 const CloseDiv = styled.div`
