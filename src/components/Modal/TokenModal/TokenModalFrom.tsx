@@ -54,6 +54,7 @@ const OpenButton = styled.button`
     align-items: center;
     justify-content: center;
     padding: 0;
+    text-align: left;
 `
 
 const CloseDiv = styled.div`
@@ -119,6 +120,7 @@ const PopupTextH3 = styled.h3 <{TextColor: string}>`
     margin-left: 10px;
     background-color: transparent;
     text-align: left;
+    white-space: nowrap;
 `
 
 const ModalArrowImg = styled.svg <{ArrrowColor: string}> `
