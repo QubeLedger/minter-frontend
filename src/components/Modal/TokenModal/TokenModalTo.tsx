@@ -117,6 +117,7 @@ const PopupTextH3 = styled.h3 <{TextColor: string}>`
     font-size: 16px;
     margin-left: 10px;
     background-color: transparent;
+    white-space: nowrap;
 `
 
 const ModalArrowImg = styled.svg <{ArrrowColor: string}>`
