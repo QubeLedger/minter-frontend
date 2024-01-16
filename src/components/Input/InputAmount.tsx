@@ -14,6 +14,7 @@ const FromInputAmount = styled.input <{TextColor: string}>`
     font-size: 24px;
     margin-right: 7px;
     outline-width: 0;
+    margin-top: 2px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `
 export const InputAmount = () => {
