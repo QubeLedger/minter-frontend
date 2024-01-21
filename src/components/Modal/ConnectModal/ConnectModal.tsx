@@ -80,10 +80,11 @@ const ConnectText = styled.h1`
     color: black;
 `
 
-const WalletsText = styled.h1`
+const WalletsText = styled.h1 <{TextColor: string}>`
     font-weight: 700;
     font-size: 17px;
     margin: 0;
+    color: ${props => props.TextColor};
     padding-bottom: 2px;
     @media (max-width: 500px) {
         font-size: 15px;
@@ -160,7 +161,7 @@ export const ConnectModal = () => {
         walletAddr =  'qube...' + String(wallet.wallet.bech32Address).slice(38,43);
     }
 
-    let walletAddress = <AddressBlock> <KeplrImg src={Keplrlogo}></KeplrImg> <WalletsText>{walletAddr}</WalletsText> </AddressBlock> ;
+    let walletAddress = <AddressBlock> <KeplrImg src={Keplrlogo}></KeplrImg> <WalletsText TextColor={theme.TextColor}>{walletAddr}</WalletsText> </AddressBlock> ;
     let connectText = <ConnectText>Connect</ConnectText>;
     return (
       <div>
