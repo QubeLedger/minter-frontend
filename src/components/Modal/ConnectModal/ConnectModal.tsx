@@ -84,6 +84,7 @@ const WalletsText = styled.h1`
     font-weight: 700;
     font-size: 17px;
     margin: 0;
+    padding-bottom: 2px;
     @media (max-width: 500px) {
         font-size: 15px;
     }
