@@ -76,7 +76,7 @@ const WalletList = styled.div`
 
 const ConnectText = styled.h1`
     font-size: 17px;
-    margin: 7px 20px;
+    margin: 8px 20px;
     color: black;
 `
 
