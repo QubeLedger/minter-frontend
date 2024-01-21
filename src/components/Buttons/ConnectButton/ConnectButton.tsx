@@ -28,7 +28,7 @@ export const ConnectButton = () => {
         <ButtonConnect
         color={connectWallet.connected == true ? 'transparment' : BackgroundConnectButton} 
         border={connectWallet.connected == true ? '2px solid #6CBBFF' : 'none' }
-        margin={connectWallet.connected == true ? '-5px' : '0px' }>
+        margin={connectWallet.connected == true ? '-4px' : '0px' }>
             <ConnectModal></ConnectModal>
         </ButtonConnect>
     )
