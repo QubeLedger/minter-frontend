@@ -56,12 +56,24 @@ const OpenButton = styled.button`
     text-align: left;
 `
 
+const CloseButtonBlock = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+`
+
+const ModalTextBlock = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+`
+
 const CloseDiv = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     font-family: 'Metropolis', sans-serif;
-    color: white;
 `
 
 const SearchToken = styled.input`
@@ -190,11 +202,15 @@ export const TokenModalTo = () => {
         {TokenOpenButton}
         <StyledDialogOvelay isOpen={showModalTo.b} onDismiss={close}>
             <StyledDialogContent modalBgColor={theme.modalBgColor} Border={theme.Border}>
-                <CloseDiv>
-                    <ModalText TextColor={theme.TextColor}>Select a token</ModalText>
-                    <CloseButton TextColor={theme.TextColor} onClick={close}>
-                    <span aria-hidden>×</span>
-                    </CloseButton>
+                 <CloseDiv>
+                    <ModalTextBlock>
+                        <ModalText TextColor={theme.TextColor}>Select a token</ModalText>
+                    </ModalTextBlock>
+                    <CloseButtonBlock>
+                        <CloseButton TextColor={theme.TextColor} onClick={close}>
+                        <span aria-hidden>×</span>
+                        </CloseButton>
+                    </CloseButtonBlock>
                 </CloseDiv>
                 <SearchBorder Border={theme.Border}>
                     <SearchDiv inputBgColor={theme.inputBgColor} Border={theme.Border}>
