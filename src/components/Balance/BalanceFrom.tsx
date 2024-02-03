@@ -3,7 +3,6 @@ import { BalanceButtonFrom } from '../Buttons/BalanceButton/BalanceButtonFrom'
 
 const BalanceText = styled.div`
     width: 100%;
-    font-family: 'Metropolis', sans-serif;
     text-align: right;
     font-weight: 600;
     font-size: 17px;
