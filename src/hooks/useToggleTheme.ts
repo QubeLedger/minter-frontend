@@ -30,7 +30,7 @@ export const ThemeDefaultState: Theme = {
     inputBgColor: '#323232',
     connectBtnColor: 'rgb(50,50,50)',
     HoverColor: '#222222',
-    ModalHoverColor: '#2d2d2d',
+    ModalHoverColor: '#333333',
     modalBgColor: '#232323',
     walletBgColor: '#5F5F5F',
     walletInfoBgColor: "#323232"
@@ -48,7 +48,7 @@ export const ThemeWhiteState: Theme = {
   inputBgColor: '#ecebeb',
   connectBtnColor: '#ecebeb',
   HoverColor: '#e2e2e2',
-  ModalHoverColor: '#e2e2e2',
+  ModalHoverColor: '#ECECEC',
   modalBgColor: '#FFFFFF',
   walletBgColor: '#D9D9D9',
   walletInfoBgColor: "#F5F5F5"

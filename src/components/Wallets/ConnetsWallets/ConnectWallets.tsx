@@ -33,7 +33,7 @@ const WalletList = styled.div`
     align-items: center;
 `
 
-const WalletFields = styled.button`
+const WalletFields = styled.button <{ModalHoverColor: string}>`
     max-width: 100%;
     border: none;
     border-radius: 10px;
@@ -50,7 +50,7 @@ const WalletFields = styled.button`
     background: transparent;
     padding: 5px;
     &:hover {
-        background: #ECECEC;
+        background: ${props => props.ModalHoverColor};
     }
 `
 
@@ -152,15 +152,15 @@ export const ConnectWallets = () => {
     return(
         <ArrWallets>
             <WalletList>
-                <WalletFields onClick={ () => {setWalletModal(WalletStatements[0])}}>
+                <WalletFields ModalHoverColor={theme.ModalHoverColor} onClick={ () => {setWalletModal(WalletStatements[0])}}>
                     <WalletLogo src={keplr}></WalletLogo>
                     <WalletName TextColor={theme.TextColor}>Keplr Wallet</WalletName>
                 </WalletFields>
-                <WalletFields onClick={ () => {setWalletModal(WalletStatements[1])}}>
+                <WalletFields ModalHoverColor={theme.ModalHoverColor} onClick={ () => {setWalletModal(WalletStatements[1])}}>
                     <WalletLogo src={leap}></WalletLogo>
                     <WalletName TextColor={theme.TextColor}>Leap Wallet</WalletName>
                 </WalletFields>
-                <WalletFields onClick={ () => {setWalletModal(WalletStatements[2])}}>
+                <WalletFields ModalHoverColor={theme.ModalHoverColor} onClick={ () => {setWalletModal(WalletStatements[2])}}>
                     <WalletLogo src={qube}></WalletLogo>
                     <WalletName TextColor={theme.TextColor}>Qube Wallet</WalletName>
                 </WalletFields>
