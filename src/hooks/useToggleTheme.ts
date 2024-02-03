@@ -35,7 +35,7 @@ export const ThemeDefaultState: Theme = {
 export const ThemeWhiteState: Theme = { 
   active: true,
   backgroundColor: '#ecebeb',
-  headerColor: 'transparent',
+  headerColor: '#d7d7d7',
   containerColor: '#ffffff',
   TextColor: '#333',
   FieldColor: '#ecebeb',
