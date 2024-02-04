@@ -177,6 +177,7 @@ export const TokenModalFrom = () => {
     const close = () => setShowModalFrom({b: false});
     const [tokenFrom, _] = useTokenFrom();
     const [theme, setTheme] = useToggleTheme()
+    
     let TokenModal;
 
     switch (tokenFrom.type) {

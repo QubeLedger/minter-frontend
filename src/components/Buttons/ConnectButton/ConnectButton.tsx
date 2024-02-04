@@ -3,11 +3,10 @@ import { ConnectModal } from '../../Modal/ConnectModal/ConnectModal'
 import { useWallet } from '../../../hooks/useWallet'
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore'
 
-const ButtonConnect = styled.div <{color: string, border: string, margin: string}>`
+const ButtonConnect = styled.div <{color: string, margin: string}>`
     max-width: 100%;
     height: 35px;
     background: ${props => props.color};
-    border: ${props => props.border};
     color: black;
     font-family: 'Metropolis', sans-serif;
     border-radius:15px;
@@ -26,8 +25,7 @@ export const ConnectButton = () => {
 
     return(
         <ButtonConnect
-        color={connectWallet.connected == true ? 'transparment' : BackgroundConnectButton} 
-        border={connectWallet.connected == true ? '2px solid #6CBBFF' : 'none' }
+        color={connectWallet.connected == true ? 'transparent' : BackgroundConnectButton} 
         margin={connectWallet.connected == true ? '-4px' : '0px' }>
             <ConnectModal></ConnectModal>
         </ButtonConnect>

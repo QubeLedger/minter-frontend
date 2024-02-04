@@ -1,14 +1,13 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import styled from 'styled-components';
+import KeplrLogo from '../../../assets/svg/Keplr.svg'
 import { animated } from '@react-spring/web';
 import { ConnectWallets } from '../../Wallets/ConnetsWallets/ConnectWallets';
 import { useConnectKeplrWalletStore } from '../../../hooks/useConnectKeplrWalletStore';
 import { useWallet } from '../../../hooks/useWallet';
 import { useShowWalletModal } from '../../../hooks/useShowModal';
+import { useColorConnect } from '../../../hooks/useColorConnect';
 import { useToggleTheme } from '../../../hooks/useToggleTheme';
-import { useBalancesStore } from '../../../hooks/useBalanceStore';
-import Keplrlogo from '../../../assets/svg/Keplr.svg'
-
 
 const ModalDialogOverlay = animated(DialogOverlay);
 const StyledDialogOvelay = styled(ModalDialogOverlay) `
@@ -28,40 +27,57 @@ const StyledDialogOvelay = styled(ModalDialogOverlay) `
     }
 `
 
-const CloseBlock = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-`
-
 const CloseButton = styled.button <{TextColor: string}>`
-    width: 20px;
-    font-size: 35px;
+    width: 25px;
+    height: 25px;
+    font-size: 30px;
+    margin-right: 20px;
     margin-top: 10px;
     background-color: transparent;
     border: none;
-    cursor: pointer;
     color: ${props => props.TextColor};
-    margin-right: 20px;
+    margin-left: auto;
     outline: none;
 `
 
-const OpenButton = styled.button `
-    width:100%;
-    height:30px;
-    background:transparent;
-    border:none;
+const CloseButtonBlock = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+`
+
+const OpenButton = styled.button <{color: string, border: string, margin: string}>`
+    max-width:100%;
+    background: ${props => props.color};
+    border: ${props => props.border};
     outline: none;
     cursor: pointer;
-    border-radius: 50px;
+    border-radius: 20px;
     font-family: 'Metropolis', sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
+    padding: 10px 20px;
+    white-space: nowrap;
+    margin-left: auto;
+    margin-top: ${props => props.margin};
+    color: #000;
+    @media (max-width: 500px) {
+        font-size: 15px;
+    }
+`
+
+const CloseDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Metropolis', sans-serif;
+    color: white;
+    margin-top: 10px;
 `
 
 const ContentDiv = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     height: 100%;
     @media (max-width: 500px) {
@@ -72,51 +88,48 @@ const ContentDiv = styled.div`
 const WalletList = styled.div`
     width: 100%;
     height: 100%;
+    margin-top: 10px;
 `
 
-const ConnectText = styled.h1`
-    font-size: 17px;
-    margin: 8px 20px;
-    color: black;
-`
-
-const WalletsText = styled.h1 <{TextColor: string}>`
-    font-weight: 700;
-    font-size: 17px;
-    margin: 0;
-    color: ${props => props.TextColor};
-    padding-bottom: 2px;
-    @media (max-width: 500px) {
-        font-size: 15px;
-    }
-`
-
-const KeplrImg = styled.img`
+const LogoKeplr = styled.img`
     width: 20px;
+    height: 20px;
+    margin-top: -2px;
     margin-right: 5px;
 `
 
-const AddressBlock = styled.div`
+const ConnectBlock = styled.div <{TextColor: string}>`
     display: flex;
     align-items: center;
-    margin: 7px 20px;
-    @media (max-width: 500px) {
-        margin: 7px 15px;
-    }
+    background: transparent;
+    color: ${props => props.TextColor};
+`
+
+const HeaderText = styled.a <{TextColor: string}>`
+    font-size: 20px;
+    color: ${props => props.TextColor};
+    white-space: nowrap;
+`
+
+const HeaderBlock = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-left: 3em;
+    margin-top: 20px;
 `
 
 
-
 const ModalDialogContent = animated(DialogContent);
-const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, Border: string}> `
+const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string}>`
     &[data-reach-dialog-content] {
-        background-color: ${props => props.modalBgColor};
-        width: 535px;
-        height: 350px;
+        background-color: rgb(245,245,245);
+        width: 375px;
+        height: 600px;
         display: flex;
+        background: ${props => props.modalBgColor};
         flex-direction: column;
         border-radius: 20px;
-        border: ${props => props.Border};
         margin-top: -10px;
         position: relative;
         outline: none;
@@ -131,18 +144,18 @@ const StyledDialogContent = styled(ModalDialogContent) <{modalBgColor: string, B
 `
 
 
-
 export const ConnectModal = () => {
-    let walletAddr: string = "";
-
-    const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
-    const [ wallet, setWallet ] = useWallet();
-    const [ walletModalStatus, setWalletModalStatus ] = useShowWalletModal();
-    const [theme, setTheme] = useToggleTheme()
-    const [balances, setBalances] = useBalancesStore();
 
     const open = () => {setWalletModalStatus({b: true})};
     const close = () => {setWalletModalStatus({b: false})};
+
+    let BackgroundConnectButton = 'linear-gradient(to right, rgb(119, 191, 249), rgb(45, 150, 255))';
+    var walletAddr: string = "";
+
+    const [ connectWallet, setConnectKeplrWalletStore ] = useConnectKeplrWalletStore();
+    const [ wallet, setWallet ] = useWallet();
+    const [ walletModalStatus, setWalletModalStatus] = useShowWalletModal();
+    const [theme, setTheme] = useToggleTheme()
 
     const disconnect = () => {
         setWallet({
@@ -156,25 +169,30 @@ export const ConnectModal = () => {
         close()
     }
 
-
+    
     if(wallet.type == "keplr") {
         walletAddr =  'qube...' + String(wallet.wallet.bech32Address).slice(38,43);
-    }
+    } 
+    
 
-    let walletAddress = <AddressBlock> <KeplrImg src={Keplrlogo}></KeplrImg> <WalletsText TextColor={theme.TextColor}>{walletAddr}</WalletsText> </AddressBlock> ;
-    let connectText = <ConnectText>Connect</ConnectText>;
     return (
       <div>
-        <OpenButton onClick={wallet.init == false? open : disconnect}>
-            {walletAddr == "" || undefined ? connectText : walletAddress }
-            </OpenButton>
+        <OpenButton onClick={wallet.init == false? open : disconnect} 
+        color={connectWallet.connected == true ? 'transparent' : BackgroundConnectButton} 
+        border={connectWallet.connected == true ? '2px solid #6CBBFF' : 'none' }
+        margin={connectWallet.connected == true ? '-5px' : '0px' }>
+            {walletAddr == "" || undefined ? "Connect Wallet" : <ConnectBlock TextColor={theme.TextColor}>  <LogoKeplr src={KeplrLogo}/>  {walletAddr} </ConnectBlock>}
+        </OpenButton>
         <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
-            <StyledDialogContent  modalBgColor={theme.modalBgColor} Border={theme.Border}>
-                <CloseBlock>              
-                    <CloseButton TextColor={theme.TextColor} onClick={close}>
-                    <span aria-hidden>×</span>
-                    </CloseButton>
-                </CloseBlock>
+            <StyledDialogContent modalBgColor={theme.modalBgColor}>
+                <CloseDiv>
+                    <HeaderBlock>
+                        <HeaderText TextColor={theme.TextColor}>Connect Wallet</HeaderText>
+                    </HeaderBlock>              
+                        <CloseButton TextColor={theme.TextColor}>
+                            <a style={{cursor: "pointer"}} onClick={close} aria-hidden>×</a>
+                        </CloseButton>
+                </CloseDiv>
                 <ContentDiv>
                     <WalletList>
                         <ConnectWallets></ConnectWallets>
