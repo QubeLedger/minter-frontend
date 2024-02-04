@@ -98,9 +98,11 @@ const LogoKeplr = styled.img`
     margin-right: 5px;
 `
 
-const ConnectBlock = styled.div`
+const ConnectBlock = styled.div <{TextColor: string}>`
     display: flex;
     align-items: center;
+    background: transparent;
+    color: ${props => props.TextColor};
 `
 
 const HeaderText = styled.a <{TextColor: string}>`
@@ -176,10 +178,10 @@ export const ConnectModal = () => {
     return (
       <div>
         <OpenButton onClick={wallet.init == false? open : disconnect} 
-        color={connectWallet.connected == true ? 'transparment' : BackgroundConnectButton} 
+        color={connectWallet.connected == true ? 'transparent' : BackgroundConnectButton} 
         border={connectWallet.connected == true ? '2px solid #6CBBFF' : 'none' }
         margin={connectWallet.connected == true ? '-5px' : '0px' }>
-            {walletAddr == "" || undefined ? "Connect Wallet" : <ConnectBlock>  <LogoKeplr src={KeplrLogo}/>  {walletAddr} </ConnectBlock>}
+            {walletAddr == "" || undefined ? "Connect Wallet" : <ConnectBlock TextColor={theme.TextColor}>  <LogoKeplr src={KeplrLogo}/>  {walletAddr} </ConnectBlock>}
         </OpenButton>
         <StyledDialogOvelay isOpen={walletModalStatus.b && !connectWallet.connected} onDismiss={close}>
             <StyledDialogContent modalBgColor={theme.modalBgColor}>
